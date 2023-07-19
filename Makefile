@@ -7,18 +7,27 @@ NAME = miniRT
 
 all : $(NAME)
 
-$(NAME) : update $(OBJ)
-	git submodule init
+$(NAME) : MLX libft update $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
+libft : 
+	make -C libft_with_additions
+
+MLX : update
+	cd MLX42; cmake -B build; cmake --build build -j4
+
 update :
+	git submodule init
 	git submodule update
 
 clean :
 	@rm -f $(OBJ)  2>/dev/null
+	@make clean -C libft_with_additions
 
-fclean : clean
+fclean :
+	@rm -f $(OBJ)  2>/dev/null
 	@rm -f $(NAME) 2>/dev/null
+	@make fclean -C libft_with_additions
 
 re : fclean all
 

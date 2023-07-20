@@ -1,6 +1,8 @@
 {
 	"files.associations": {
 		"cstdlib": "c",
-		"random": "c"
+		"random": "c",
+		"string.h": "c",
+		"minirt_defines.h": "c"
 	}
 }

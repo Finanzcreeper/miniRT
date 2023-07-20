@@ -3,10 +3,9 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
-                "${workspaceFolder}/libft",
-                "${workspaceFolder}/MLX42/include",
-                "${workspaceFolder}/libft"
+                "/nfs/homes/dlu/Projects/miniRT/srcs",
+                "/nfs/homes/dlu/Projects/miniRT/libft",
+                "/nfs/homes/dlu/Projects/miniRT/MLX42/include"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

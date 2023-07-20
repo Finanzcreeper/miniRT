@@ -1,6 +1,8 @@
 NAME = miniRT
 
-_SRC = main.c ft_read_file.c test.c
+_SRC = main.c test.c \
+       parser_basic.c parser_obj.c parser_params.c parser_utils.c parser.c \
+       utils/ft_read_file.c utils/ft_strarr.c
 _INC = miniRT_defines.h miniRT_types.h miniRT.h
 SRC = $(addprefix $(SRCDIR)/, $(_SRC))
 INC = $(addprefix $(SRCDIR)/, $(_INC))
@@ -49,11 +51,11 @@ $(LIBMLX) :
 
 clean :
 	$(RM) $(OBJ)
-	@make $@ -C $(LIBDIR) $(MUTE)
+	@test -f $(LIBDIR)/Makefile && make $@ -C $(LIBDIR) $(MUTE)
 
 fclean : clean
 	$(RM) $(NAME) $(LIBMLX) $(LIBFT)
-	git submodule deinit --all -f
+	@git submodule deinit --all -f $(MUTE)
 
 re : fclean all
 

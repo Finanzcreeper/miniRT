@@ -103,6 +103,8 @@ typedef struct s_data
 	t_object	*objects;
 	int			n_obj;
 	mlx_t		*mlx;
+	char		**lines;
+	char		**infos;
 }	t_data;
 
 #endif

@@ -1,4 +1,0 @@
-1: make window
-
-2: make objects ( sphere, cylinder, plane)
--> visible dots, lines and surfaces

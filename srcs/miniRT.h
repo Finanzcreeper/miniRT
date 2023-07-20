@@ -14,4 +14,7 @@
 
 char	*ft_read_file(const char *filename);
 
+//testing
+int		test(t_data *data);
+
 #endif

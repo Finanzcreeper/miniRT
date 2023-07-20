@@ -42,5 +42,6 @@ int	main(int ac, char **av)
 		ft_error(ERR_ARG, true, NULL);
 	init_data(&data);
 	load_data(av[1], &data);
+	test(&data);
 	return (EXIT_SUCCESS);
 }

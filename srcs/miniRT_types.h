@@ -9,6 +9,7 @@ typedef struct s_color
 	unsigned char	r;
 	unsigned char	g;
 	unsigned char	b;
+	int				mlxcolor;
 }	t_color;
 
 typedef struct s_point

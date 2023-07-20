@@ -12,5 +12,6 @@
 # include <stdio.h>
 # include <errno.h>
 
+char	*ft_read_file(const char *filename);
 
 #endif

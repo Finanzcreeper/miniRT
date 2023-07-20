@@ -1,7 +1,9 @@
 NAME = miniRT
 
-_SRC = main.c
+_SRC = main.c ft_read_file.c
+_INC = miniRT_defines.h miniRT_types.h miniRT.h
 SRC = $(addprefix $(SRCDIR)/, $(_SRC))
+INC = $(addprefix $(SRCDIR)/, $(_INC))
 OBJ = $(SRC:.c=.o)
 
 CC = cc
@@ -29,7 +31,7 @@ endif
 
 all : $(NAME)
 
-$(NAME) : $(LIBFT) $(LIBMLX) $(OBJ)
+$(NAME) : $(LIBFT) $(LIBMLX) $(OBJ) $(INC)
 	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LFLAGS)
 
 $(LIBFT) :

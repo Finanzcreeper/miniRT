@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/libft",
-                "${workspaceFolder}/MLX42/include"
+                "${workspaceFolder}/MLX42/include",
+                "${workspaceFolder}/libft"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

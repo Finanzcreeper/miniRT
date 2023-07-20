@@ -15,7 +15,14 @@ static void	ft_error(char *msg, bool toexit, t_data *data)
 // any error will call ft_error to exit in place
 static void	init_data(char *file, t_data *data)
 {
-	(void) file;
+	const char	*ext = ft_strrchr(file, '.');
+	char		*content;
+
+	if (!ext || ft_strncmp(ext, SCENE_EXT, ft_strlen(SCENE_EXT)))
+		ft_error(ERR_EXT, true, NULL);
+	content = ft_read_file(file);
+	if (!content)
+		;
 	(void) data;
 }
 

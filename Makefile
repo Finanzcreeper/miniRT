@@ -1,6 +1,6 @@
 NAME = miniRT
 
-_SRC = main.c ft_read_file.c
+_SRC = main.c ft_read_file.c test.c
 _INC = miniRT_defines.h miniRT_types.h miniRT.h
 SRC = $(addprefix $(SRCDIR)/, $(_SRC))
 INC = $(addprefix $(SRCDIR)/, $(_INC))

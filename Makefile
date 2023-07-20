@@ -35,12 +35,12 @@ $(NAME) : $(LIBFT) $(LIBMLX) $(OBJ) $(INC)
 	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LFLAGS)
 
 $(LIBFT) :
-	@git submodule init && git submodule update $(MUTE)
+	@git submodule init && git submodule update --remote $(MUTE)
 	@echo "Building LIBFT..."
 	@make -C $(LIBDIR) $(MUTE)
 
 $(LIBMLX) :
-	@git submodule init && git submodule update $(MUTE)
+	@git submodule init && git submodule update --remote $(MUTE)
 	@echo "Building MLX42..."
 	@cd $(MLXDIR); cmake -B build $(MUTE); cmake --build build -j4 $(MUTE)
 
@@ -53,6 +53,7 @@ clean :
 
 fclean : clean
 	$(RM) $(NAME) $(LIBMLX) $(LIBFT)
+	git submodule deinit --all -f
 
 re : fclean all
 

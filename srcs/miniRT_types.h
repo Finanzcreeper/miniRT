@@ -87,6 +87,7 @@ typedef struct s_object
 
 typedef struct s_data
 {
+	char		*file_content;
 	t_ambient	ambient;
 	t_camera	camera;
 	t_light		light;

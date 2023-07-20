@@ -1,12 +1,13 @@
 NAME = miniRT
 
-SRC = test.c
+_SRC = test.c
+SRC = $(addprefix $(SRCDIR)/, $(_SRC))
 OBJ = $(SRC:.c=.o)
 
 CC = cc
 RM = /bin/rm -rf
 
-SRCDIR = src
+SRCDIR = srcs
 LIBDIR = libft
 MLXDIR = MLX42
 

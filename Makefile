@@ -7,7 +7,7 @@ SRC = test.c
 OBJ = $(SRC:.c=.o)
 
 SRCDIR = src
-LIBDIR = libft_with_additions
+LIBDIR = libft
 MLXDIR = MLX42
 
 MAKEFLAGS = --no-print-directory
@@ -25,28 +25,30 @@ endif
 all : $(NAME)
 
 $(NAME) : MLX libft $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LFLAGS)
+	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LFLAGS)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $< $(IFLAGS)
 
 libft : update
-	make -C $(LIBDIR) all >/dev/null
+	@echo "Building $@..."
+	@make -C $(LIBDIR) all >/dev/null
 
 MLX : update
-	cd $(MLXDIR); cmake -B build; cmake --build build -j4
+	@echo "Building $@..."
+	@cd $(MLXDIR); cmake -B build >/dev/null; cmake --build build -j4 >/dev/null
 
 update :
-	git submodule init && git submodule update
+	@git submodule init && git submodule update >/dev/null
 
 clean :
-	@$(RM) $(OBJ)  2>/dev/null
-	@make clean -C $(LIBDIR) >/dev/null
+	$(RM) $(OBJ) 2>/dev/null
+	@make $@ -C $(LIBDIR) >/dev/null
 
 fclean :
-	@$(RM) $(OBJ)  2>/dev/null
-	@$(RM) $(NAME) 2>/dev/null
-	@make fclean -C $(LIBDIR) >/dev/null
+	$(RM) $(OBJ) 2>/dev/null
+	$(RM) $(NAME) 2>/dev/null
+	@make $@ -C $(LIBDIR) >/dev/null
 
 re : fclean all
 

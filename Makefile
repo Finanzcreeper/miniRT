@@ -10,6 +10,9 @@ SRCDIR = src
 LIBDIR = libft
 MLXDIR = MLX42
 
+LIBFT = $(LIBDIR)/libft.a
+LIBMLX = $(MLXDIR)/build/libmlx42.a
+
 MAKEFLAGS = --no-print-directory
 CFLAGS = -Wall -Werror -Wextra -g3
 IFLAGS	:= -I $(LIBDIR) -I $(MLXDIR)/include -I $(SRCDIR)
@@ -24,32 +27,29 @@ endif
 
 all : $(NAME)
 
-$(NAME) : MLX libft $(OBJ)
+$(NAME) : $(LIBFT) $(LIBMLX) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LFLAGS)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $< $(IFLAGS)
 
-libft : update
-	@echo "Building $@..."
+$(LIBFT) :
+	@git submodule init && git submodule update >/dev/null
+	@echo "Building LIBFT..."
 	@make -C $(LIBDIR) all >/dev/null
 
-MLX : update
-	@echo "Building $@..."
-	@cd $(MLXDIR); cmake -B build >/dev/null; cmake --build build -j4 >/dev/null
-
-update :
+$(LIBMLX) :
 	@git submodule init && git submodule update >/dev/null
+	@echo "Building MLX42..."
+	@cd $(MLXDIR); cmake -B build >/dev/null; cmake --build build -j4 >/dev/null
 
 clean :
 	$(RM) $(OBJ) 2>/dev/null
 	@make $@ -C $(LIBDIR) >/dev/null
 
-fclean :
-	$(RM) $(OBJ) 2>/dev/null
-	$(RM) $(NAME) 2>/dev/null
-	@make $@ -C $(LIBDIR) >/dev/null
+fclean : clean
+	$(RM) $(NAME) $(LIBMLX) $(LIBFT) 2>/dev/null
 
 re : fclean all
 
-.PHONY : libft MLX update clean fclean re
+.PHONY : all clean fclean re

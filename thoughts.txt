@@ -1,0 +1,90 @@
+1: make window
+
+2: make objects ( sphere, cylinder, plane)
+-> visible dots, lines and surfaces
+
+where to put origin of coords ?
+
+if origin at top left, x goes from 0 to width_of_window, y goes from 0 to -height_of_window
+
+if origin at bottom left, x goes from 0 to width_of_window, y goes from 0 to height_of_window
+
+if origin in middle of window, x goes from -1/2 width_of_window to 1/2 width_of_window, y goes from -1/2 height_of_window tp 1/2 height_of_window
+
+bottom left seems the nicest, because no negative numbers...
+
+what are the coords of MLX? maybe use the same, to prevent th need of adapting results to mlx coords.
+
+how big are intervals between units?
+if one Pixel is one unit, where to put a point at (0;1.5)? --> round back to int!
+if 10 Pixel are one unit, resolution should be higher, but sizes will increase by 10 as well...
+whats the best tradeof?
+also depending on this more or less places after the decimal point become useful. (cant color pixels at arbitrary points on screen)
+
+(1;1.5) roundet up in 5px = 1Unit
+
+	 y
+	2|                         
+	 |                         
+	 |                         
+	 |                         
+	 |                         
+	1|       •                 
+	 |                         
+	 |                         
+	 |                         
+	 |                         
+	0O-------------------------x
+	 0    1    2    3    4    5
+
+(1;1.5) rounded down in 5px = 1Unit
+
+	 y
+	2|                         
+	 |                         
+	 |                         
+	 |                         
+	 |                         
+	1|      •                  
+	 |                         
+	 |                         
+	 |                         
+	 |                         
+	0O-------------------------x
+	 0    1    2    3    4    5
+
+
+(1;1.5) line from (1;1.5) to (3;2) in 5px = 1Unit
+
+	 y
+	2|              •          
+	 |            ••           
+	 |          ••             
+	 |         •               
+	 |       ••                
+	1|      •                  
+	 |                         
+	 |                         
+	 |                         
+	 |                         
+	0O-------------------------x
+	 0    1    2    3    4    5
+
+
+which handedness to use?
+(does the positive z axis point out of the screen or into the screen?)
+as we can move things infinitely far back, it seems to not matter if the origin is on the plane of the screen or moved "into" or "out" of the screen on the y axis.
+
+
+
+
+
+
+
+
+sphere origin = (x;y;z) in global corrds
+
+for sphere itself its (0;0;0).
+
+define a sphere...
+radius of sphere = (x;0;0).

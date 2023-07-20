@@ -1,6 +1,6 @@
 NAME = miniRT
 
-_SRC = test.c
+_SRC = main.c
 SRC = $(addprefix $(SRCDIR)/, $(_SRC))
 OBJ = $(SRC:.c=.o)
 

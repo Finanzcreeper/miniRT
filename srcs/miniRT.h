@@ -3,6 +3,7 @@
 
 # include "libft.h"
 # include "miniRT_types.h"
+# include "miniRT_defines.h"
 # include <stdbool.h>
 # include <unistd.h>
 # include <stdlib.h>

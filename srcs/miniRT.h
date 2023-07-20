@@ -33,6 +33,6 @@ bool		parse_cylinder(char **infos, int *idx, t_data *data);
 void		free_exit(t_data *data, int status);
 
 //testing
-int		test(t_data *data);
+int			test(t_data *data);
 
 #endif

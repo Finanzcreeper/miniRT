@@ -2,6 +2,7 @@
 # define MINIRT_TYPES_H
 
 # include "MLX42/MLX42.h"
+# include "stdbool.h"
 
 typedef struct s_color
 {
@@ -12,26 +13,28 @@ typedef struct s_color
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-	int	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_point;
 
 typedef struct s_vector
 {
-	int	x;
-	int	y;
-	int	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_vector;
 
 typedef struct s_ambient
 {
-	int		ratio;
+	bool	assigned;
+	double	ratio;
 	t_color	color;
 }	t_ambient;
 
 typedef struct s_camera
 {
+	bool		assigned;
 	t_point		view;
 	t_vector	orientation;
 	int			fov;
@@ -39,15 +42,16 @@ typedef struct s_camera
 
 typedef struct s_light
 {
+	bool	assigned;
 	t_point	source;
-	int		ratio;
+	double	ratio;
 	t_color	color;
 }	t_light;
 
 typedef struct s_sphere
 {
 	t_point	center;
-	int		diameter;
+	double	diameter;
 	t_color	color;
 }	t_sphere;
 
@@ -62,13 +66,17 @@ typedef struct s_cylinder
 {
 	t_point		center;
 	t_vector	vector;
-	int			diameter;
-	int			height;
+	double		diameter;
+	double		height;
 	t_color		color;
 }	t_cylinder;
 
 typedef enum e_type
 {
+	INVALID,
+	AMBIENT,
+	CAMERA,
+	LIGHT,
 	SPHERE,
 	PLANE,
 	CYLINDER
@@ -92,6 +100,7 @@ typedef struct s_data
 	t_camera	camera;
 	t_light		light;
 	t_object	*objects;
+	int			n_obj;
 	mlx_t		*mlx;
 }	t_data;
 

@@ -32,6 +32,8 @@ bool		parse_cylinder(char **infos, int *idx, t_data *data);
 
 void		free_exit(t_data *data, int status);
 
+t_vector	vec_add(t_vector v1, t_vector v2);
+
 //testing
 int			test(t_data *data);
 

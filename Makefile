@@ -2,6 +2,7 @@ NAME = miniRT
 
 _SRC = main.c test.c \
        parser_basic.c parser_obj.c parser_params.c parser_utils.c parser.c \
+	   vec_basic.c vec_calc.c \
        utils/ft_read_file.c utils/ft_strarr.c
 _INC = miniRT_defines.h miniRT_types.h miniRT.h
 SRC = $(addprefix $(SRCDIR)/, $(_SRC))
@@ -37,12 +38,12 @@ $(NAME) : $(LIBFT) $(LIBMLX) $(OBJ) $(INC)
 	$(CC) $(CFLAGS) $(OBJ) -o $@ $(LFLAGS)
 
 $(LIBFT) :
-	@git submodule init && git submodule update --remote $(MUTE)
+	@git submodule init $(MUTE) && git submodule update --remote $(MUTE)
 	@echo "Building LIBFT..."
 	@make -C $(LIBDIR) $(MUTE)
 
 $(LIBMLX) :
-	@git submodule init && git submodule update --remote $(MUTE)
+	@git submodule init $(MUTE) && git submodule update --remote $(MUTE)
 	@echo "Building MLX42..."
 	@cd $(MLXDIR); cmake -B build $(MUTE); cmake --build build -j4 $(MUTE)
 

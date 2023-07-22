@@ -3,6 +3,10 @@
         {
             "name": "Linux",
             "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/srcs",
+                "${workspaceFolder}/libft",
+                "${workspaceFolder}/MLX42/include",
                 "/nfs/homes/dlu/Projects/miniRT/srcs",
                 "/nfs/homes/dlu/Projects/miniRT/libft",
                 "/nfs/homes/dlu/Projects/miniRT/MLX42/include"

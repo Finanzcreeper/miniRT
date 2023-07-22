@@ -17,7 +17,7 @@ double	vec_dot(t_vector v1, t_vector v2)
 
 t_vector	vec_cross(t_vector v1, t_vector v2)
 {
-	Vector result;
+	t_vector result;
 
 	result.x = v1.y * v2.z - v1.z * v2.y;
 	result.y = v1.z * v2.x - v1.x * v2.z;

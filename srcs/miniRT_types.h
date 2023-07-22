@@ -53,6 +53,7 @@ typedef struct s_sphere
 {
 	t_point	center;
 	double	diameter;
+	double	radius;
 	t_color	color;
 }	t_sphere;
 
@@ -101,6 +102,16 @@ typedef struct s_ray
 	t_vector	direction;
 	t_object	*view;
 }	t_ray;
+
+typedef struct s_quadeq
+{
+	double	a;
+	double	b;
+	double	c;
+	double	t1;
+	double	t2;
+	double	discriminant;
+}	t_quadeq;
 
 typedef struct s_data
 {

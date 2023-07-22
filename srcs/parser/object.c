@@ -14,6 +14,7 @@ bool	parse_sphere(char **infos, int *idx, t_data *data)
 		ft_error(ERR_SP, true, data);
 	success = true;
 	obj->diameter = ft_strtod(infos[2], &success);
+	obj->radius = obj->diameter / 2;
 	if (!success)
 		ft_error(ERR_SP, true, data);
 	if (!parse_color(infos[3], &obj->color))

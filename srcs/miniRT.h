@@ -10,6 +10,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
+# include <math.h>
 
 void		init_data(t_data *data);
 
@@ -34,9 +35,11 @@ bool		parse_cylinder(char **infos, int *idx, t_data *data);
 
 void		ft_exit(t_data *data, int status);
 
-t_vector	vec_add(t_vector v1, t_vector v2);
+t_vector	point_diff(t_point v1, t_point v2);
+void		solve_quadeq(t_quadeq *eq);
+t_point		get_hitpoint(t_ray ray, double t);
 
-//testing
+// testing
 int			test(t_data *data);
 
 #endif

@@ -54,20 +54,37 @@ void	cylinder_ambiance(t_data *data, int c)
 		data->objects[c].cylinder.color.b = 255;
 }
 
+void	object_ambiance(t_data *data, int c)
+{
+	if (data->objects[c].color->r + data->ambient.color.r < 255)
+		data->objects[c].color->r += data->ambient.color.r;
+	else
+		data->objects[c].color->r = 255;
+	if (data->objects[c].color->g + data->ambient.color.g < 255)
+		data->objects[c].color->g += data->ambient.color.g;
+	else
+		data->objects[c].color->g = 255;
+	if (data->objects[c].color->b + data->ambient.color.b < 255)
+		data->objects[c].color->b += data->ambient.color.b;
+	else
+		data->objects[c].color->b = 255;
+}
+
 void	apply_ambience_light(t_data *data)
 {
 	int	c;
 
 	c = 0;
 	while (c < data->n_obj)
-	{
-		if (data->objects[c].type == SPHERE)
-			sphere_ambiance(data, c);
-		if (data->objects[c].type == CYLINDER)
-			cylinder_ambiance(data, c);
-		if (data->objects[c].type == PLANE)
-			plane_ambiance(data, c);
-	}
+		object_ambiance(data, c);
+	// {
+	// 	if (data->objects[c].type == SPHERE)
+	// 		sphere_ambiance(data, c);
+	// 	if (data->objects[c].type == CYLINDER)
+	// 		cylinder_ambiance(data, c);
+	// 	if (data->objects[c].type == PLANE)
+	// 		plane_ambiance(data, c);
+	// }
 }
 
 void	draw(mlx_image_t *img, t_data *data)

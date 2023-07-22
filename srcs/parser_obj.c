@@ -7,6 +7,7 @@ bool	parse_sphere(char **infos, int *idx, t_data *data)
 
 	obj = &data->objects[*idx].sphere;
 	data->objects[*idx].type = SPHERE;
+	data->objects[*idx].color = &obj->color;
 	if (ft_strarrlen(infos) != 4)
 		ft_error(ERR_SP, true, data);
 	if (!parse_point(infos[1], &obj->center))
@@ -26,6 +27,7 @@ bool	parse_plane(char **infos, int *idx, t_data *data)
 
 	obj = &data->objects[*idx].plane;
 	data->objects[*idx].type = PLANE;
+	data->objects[*idx].color = &obj->color;
 	if (ft_strarrlen(infos) != 4)
 		ft_error(ERR_PL, true, data);
 	if (!parse_point(infos[1], &obj->point))
@@ -44,6 +46,7 @@ bool	parse_cylinder(char **infos, int *idx, t_data *data)
 
 	obj = &data->objects[*idx].cylinder;
 	data->objects[*idx].type = CYLINDER;
+	data->objects[*idx].color = &obj->color;
 	if (ft_strarrlen(infos) != 6)
 		ft_error(ERR_CY, true, data);
 	if (!parse_point(infos[1], &obj->center))

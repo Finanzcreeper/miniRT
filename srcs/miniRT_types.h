@@ -86,6 +86,7 @@ typedef enum e_type
 typedef struct s_object
 {
 	int		type;
+	t_color	*color;
 	union
 	{
 		t_sphere	sphere;
@@ -93,6 +94,13 @@ typedef struct s_object
 		t_cylinder	cylinder;
 	};
 }	t_object;
+
+typedef struct s_ray
+{
+	t_point		origin;
+	t_vector	direction;
+	t_object	*view;
+}	t_ray;
 
 typedef struct s_data
 {

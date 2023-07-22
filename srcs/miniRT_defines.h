@@ -22,5 +22,6 @@
 # define ERR_SP		"Scene file has incorret sphere!"
 # define ERR_PL		"Scene file has incorret plane!"
 # define ERR_CY		"Scene file has incorret cylinder!"
+# define ERR_MISS	"Scene file doesn't have one of the required fields!"
 
 #endif

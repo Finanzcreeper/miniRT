@@ -11,6 +11,8 @@
 # include <stdio.h>
 # include <errno.h>
 
+void		init_data(t_data *data);
+
 int			ft_strarrlen(char **arr);
 void		ft_strarrfree(char **arr);
 
@@ -30,7 +32,7 @@ bool		parse_sphere(char **infos, int *idx, t_data *data);
 bool		parse_plane(char **infos, int *idx, t_data *data);
 bool		parse_cylinder(char **infos, int *idx, t_data *data);
 
-void		free_exit(t_data *data, int status);
+void		ft_exit(t_data *data, int status);
 
 t_vector	vec_add(t_vector v1, t_vector v2);
 

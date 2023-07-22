@@ -13,12 +13,21 @@ void	init_data(t_data *data)
 	data->n_obj = 0;
 }
 
-t_ray	init_ray(t_data *data, t_vector direction)
+t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)
 {
-	t_ray ray;
+	t_ray 			ray;
+	t_vector		direction;
+	const double	unit_x = 10 / (img->width); // 30 degree for now
+	const double	unit_y = 10 / (img->height); // 30 degree for now
 
+	//printf("unit: %d %d\n", img->width, img->height);
 	ray.origin = data->camera.view;
+	direction.x = data->camera.orientation.x + unit_x * width;
+	direction.y = data->camera.orientation.y + unit_y * height;
+	direction.z = data->camera.orientation.z;
+	//direction = vec_normalize(direction);
 	ray.direction = direction;
+	//printf("direction: %f %f %f\n", direction.x, direction.y, direction.z);
 	ray.view = NULL;
 	return (ray);
 }

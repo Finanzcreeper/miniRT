@@ -24,3 +24,14 @@ t_vector	vec_cross(t_vector v1, t_vector v2)
 	result.z = v1.x * v2.y - v1.y * v2.x;
 	return (result);
 }
+
+t_vector	vec_normalize(t_vector v)
+{
+	const double	mag = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	t_vector		result;
+
+	result.x = v.x / mag;
+	result.y = v.y / mag;
+	result.z = v.z / mag;
+	return (result);
+}

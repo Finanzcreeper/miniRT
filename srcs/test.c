@@ -74,8 +74,8 @@ void	apply_ambience_light(t_data *data)
 {
 	int	c;
 
-	c = 0;
-	while (c < data->n_obj)
+	c = -1;
+	while (++c < data->n_obj)
 		object_ambiance(data, c);
 	// {
 	// 	if (data->objects[c].type == SPHERE)
@@ -134,14 +134,50 @@ void	draw(mlx_image_t *img, t_data *data)
 
 void	setup_window(mlx_t **mlx)
 {
-	int			width;
-	int			height;
+	int	width = 640;
+	int	height = 480;
 
-	width = 1;
-	height = 1;
+	// width = 1;
+	// height = 1;
 	*mlx = mlx_init(width, height, "miniRT", true);
-	mlx_get_monitor_size(0, &width, &height);
+	// mlx_get_monitor_size(0, &width, &height);
 	mlx_set_window_size(*mlx, width, height);
+}
+
+uint32_t	setcolor(void)
+{
+	return (255 << 24 | 0 << 16 | 0 << 8 | 255);
+}
+
+void	draw_sphere(mlx_image_t *img, t_data *data)
+{
+	int			h;
+	int			w;
+	t_ray		ray;
+	t_point		hitpoint;
+	int			count = 0;
+
+	colormaker(&data->ambient.color);
+	colormaker(data->objects[0].color);
+	w = - (img->width / 2);
+	while (++w < (int) img->width / 2)
+	{
+		h = - (img->height / 2);
+		while (++h < (int) img->height / 2)
+		{
+			ray = init_ray(data, img, h, w);
+			hitpoint = sphere_intersection(ray, data->objects[0].sphere);
+			if (hit_nothing(hitpoint))
+				mlx_put_pixel(img, w + (img->width/2), h + (img->height/2), data->ambient.color.mlxcolor);
+			else
+			{
+				++count;
+				printf("h: %d, w: %d, %f %f %f\n", h, w, hitpoint.x, hitpoint.y, hitpoint.z);
+				mlx_put_pixel(img, w + (img->width/2), h + (img->height/2), setcolor());
+			}
+		}
+	}
+	printf("final: %d\n", count);
 }
 
 int	test(t_data *data)
@@ -151,9 +187,8 @@ int	test(t_data *data)
 	setup_window(&data->mlx);
 	colormaker(&data->ambient.color);
 	img = mlx_new_image(data->mlx, data->mlx->width, data->mlx->height);
-	data->n_obj = 0;
 	apply_ambience_light(data);
-	draw(img, data);
+	draw_sphere(img, data);
 	mlx_image_to_window(data->mlx, img, 0, 0);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

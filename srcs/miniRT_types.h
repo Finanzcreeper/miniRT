@@ -100,7 +100,10 @@ typedef struct s_ray
 {
 	t_point		origin;
 	t_vector	direction;
-	t_object	*view;
+	t_color		color;
+	bool		light;
+	double		t_obj;
+	double		t_light;
 }	t_ray;
 
 typedef struct s_quadeq

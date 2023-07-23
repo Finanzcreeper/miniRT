@@ -35,6 +35,17 @@ t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)
 	ray.direction.z = screen_x * right.z + screen_y * true_up.z - z * data->camera.orientation.z;
 
 	ray.direction = vec_normalize(ray.direction);
-	ray.view = NULL;
+	ray.light = true;
+	ray.t_obj = INFINITY;
+	ray.t_light = INFINITY;
+	return (ray);
+}
+
+t_ray	init_shadow_ray(t_point origin, t_vector direction)
+{
+	t_ray	ray;
+
+	ray.origin = origin;
+	ray.direction = direction;
 	return (ray);
 }

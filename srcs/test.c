@@ -103,7 +103,6 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 	int			h;
 	int			w;
 	t_ray		ray;
-	t_point		hitpoint;
 
 	colormaker(&data->ambient.color);
 	colormaker(data->objects[0].color);
@@ -114,11 +113,14 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 		while (++h < (int) img->height)
 		{
 			ray = init_ray(data, img, h, w);
-			hitpoint = sphere_intersection(ray, data->objects[0].sphere);
-			if (hit_nothing(hitpoint))
+			intersection(&ray, data);
+			if (ray.t_obj == INFINITY || !ray.light)
 				mlx_put_pixel(img, w, h, bg_color());
 			else
-				mlx_put_pixel(img, w, h, data->objects[0].color->mlxcolor);
+			{
+				colormaker(&ray.color);
+				mlx_put_pixel(img, w, h, ray.color.mlxcolor);
+			}
 		}
 	}
 }

@@ -15,6 +15,7 @@
 /* Utils. */
 void		init_data(t_data *data);
 t_ray		init_ray(t_data *data, mlx_image_t *img, int height, int width);
+t_ray		init_shadow_ray(t_point origin, t_vector direction);
 int			ft_strarrlen(char **arr);
 void		ft_strarrfree(char **arr);
 void		ft_error(char *msg, bool toexit, t_data *data);
@@ -43,8 +44,15 @@ t_vector	vec_cross(t_vector v1, t_vector v2);
 t_vector	vec_normalize(t_vector v);
 void		solve_quadeq(t_quadeq *eq);
 t_point		get_hitpoint(t_ray ray, double t);
-t_point		sphere_intersection(t_ray ray, t_sphere sphere);
+void		hit_sphere(t_ray *ray, t_sphere *sphere, t_data *data, int idx);
+void		hit_plane(t_ray *ray, t_plane *plane, t_data *data, int idx);
 bool		hit_nothing(t_point point);
+bool		in_light(t_data *data, t_point hitpoint, int idx);
+
+bool		block_sphere(t_ray *ray, t_sphere *sphere);
+bool		block_plane(t_ray *ray, t_plane *plane);
+
+void		intersection(t_ray *ray, t_data *data);
 
 /* Testing. */
 int			test(t_data *data);

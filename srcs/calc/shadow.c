@@ -31,12 +31,21 @@ bool	block_sphere(t_ray *ray, t_sphere *sphere)
 	solve_quadeq(&eq);
 	if (eq.discriminant < 0)
 		return (false);
+	if (eq.t1 < 0 && eq.t2 < 0)
+		return (false); // if hits behind?
 	return (true);
 }
 
 bool	block_plane(t_ray *ray, t_plane *plane)
 {
-	(void)ray;
-	(void)plane;
+	const double	denom = vec_dot(ray->direction, plane->vector);
+	const t_vector	op = point_diff(ray->origin, plane->point);
+	double			t;
+
+	if (denom < 1e-6)
+		return (false);
+	t = - vec_dot(plane->vector, op) / denom;
+	if (t < 0)
+		return (false);
 	return (true);
 }

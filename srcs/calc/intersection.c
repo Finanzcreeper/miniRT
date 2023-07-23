@@ -15,16 +15,14 @@ void	hit_sphere(t_ray *ray, t_sphere *sphere, t_data *data, int idx)
 	{
 		ray->color = sphere->color;
 		ray->t_obj = eq.t1;
-		//ray->light = in_light(data, get_hitpoint(*ray, ray->t_obj), idx);
+		ray->light = in_light(data, get_hitpoint(*ray, ray->t_obj), idx);
 	}
 	else if (eq.t1 > eq.t2 && eq.t2 < ray->t_obj)
 	{
 		ray->color = sphere->color;
 		ray->t_obj = eq.t2;
-		//ray->light = in_light(data, get_hitpoint(*ray, ray->t_obj), idx);
+		ray->light = in_light(data, get_hitpoint(*ray, ray->t_obj), idx);
 	}
-	(void)data;
-	(void)idx;
 }
 
 void	hit_plane(t_ray *ray, t_plane *plane, t_data *data, int idx)
@@ -42,9 +40,8 @@ void	hit_plane(t_ray *ray, t_plane *plane, t_data *data, int idx)
 	{
 		ray->color = plane->color;
 		ray->t_obj = t;
+		ray->light = in_light(data, get_hitpoint(*ray, ray->t_obj), idx);
 	}
-	(void)data;
-	(void)idx;
 }
 
 void	intersection(t_ray *ray, t_data *data)

@@ -114,12 +114,15 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 		{
 			ray = init_ray(data, img, h, w);
 			intersection(&ray, data);
-			if (ray.t_obj == INFINITY || !ray.light)
+			if (ray.t_obj == INFINITY)
 				mlx_put_pixel(img, w, h, bg_color());
 			else
 			{
 				colormaker(&ray.color);
-				mlx_put_pixel(img, w, h, ray.color.mlxcolor);
+				if (ray.light)
+					mlx_put_pixel(img, w, h, ray.color.mlxcolor);
+				else
+					mlx_put_pixel(img, w, h, ray.color.mlxcolor - 100); // shadow, change alpha channel
 			}
 		}
 	}

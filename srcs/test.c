@@ -135,7 +135,7 @@ void	draw(mlx_image_t *img, t_data *data)
 void	setup_window(mlx_t **mlx)
 {
 	int	width = 640;
-	int	height = 480;
+	int	height = 640;
 
 	// width = 1;
 	// height = 1;
@@ -159,21 +159,21 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 
 	colormaker(&data->ambient.color);
 	colormaker(data->objects[0].color);
-	w = - (img->width / 2);
-	while (++w < (int) img->width / 2)
+	w = -1;
+	while (++w < (int) img->width)
 	{
-		h = - (img->height / 2);
-		while (++h < (int) img->height / 2)
+		h = -1;
+		while (++h < (int) img->height)
 		{
 			ray = init_ray(data, img, h, w);
 			hitpoint = sphere_intersection(ray, data->objects[0].sphere);
 			if (hit_nothing(hitpoint))
-				mlx_put_pixel(img, w + (img->width/2), h + (img->height/2), data->ambient.color.mlxcolor);
+				mlx_put_pixel(img, w, h, data->ambient.color.mlxcolor);
 			else
 			{
 				++count;
-				printf("h: %d, w: %d, %f %f %f\n", h, w, hitpoint.x, hitpoint.y, hitpoint.z);
-				mlx_put_pixel(img, w + (img->width/2), h + (img->height/2), setcolor());
+				//printf("h: %d, w: %d, %f %f %f\n", h, w, hitpoint.x, hitpoint.y, hitpoint.z);
+				mlx_put_pixel(img, w, h, setcolor());
 			}
 		}
 	}

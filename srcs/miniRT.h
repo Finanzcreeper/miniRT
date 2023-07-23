@@ -14,7 +14,7 @@
 
 /* Utils. */
 void		init_data(t_data *data);
-t_ray		init_ray(t_data *data,  mlx_image_t *img, int height, int width);
+t_ray		init_ray(t_data *data, mlx_image_t *img, int height, int width);
 int			ft_strarrlen(char **arr);
 void		ft_strarrfree(char **arr);
 void		ft_error(char *msg, bool toexit, t_data *data);
@@ -39,6 +39,7 @@ void		parse_content(t_data *data, char *content);
 /* Calculations. */
 t_vector	point_diff(t_point v1, t_point v2);
 double		vec_dot(t_vector v1, t_vector v2);
+t_vector	vec_cross(t_vector v1, t_vector v2);
 t_vector	vec_normalize(t_vector v);
 void		solve_quadeq(t_quadeq *eq);
 t_point		get_hitpoint(t_ray ray, double t);

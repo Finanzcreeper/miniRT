@@ -5,8 +5,8 @@ void	solve_quadeq(t_quadeq *eq)
 	eq->discriminant = eq->b * eq->b - 4 * eq->a * eq->c;
 	if (eq->discriminant < 0)
 		return ;
-	eq->t1 = -eq->b + sqrt(eq->discriminant) / (2 * eq->a);
-	eq->t2 = -eq->b - sqrt(eq->discriminant) / (2 * eq->a);
+	eq->t1 = (-eq->b + sqrt(eq->discriminant)) / (2 * eq->a);
+	eq->t2 = (-eq->b - sqrt(eq->discriminant)) / (2 * eq->a);
 }
 
 t_point	get_hitpoint(t_ray ray, double t)

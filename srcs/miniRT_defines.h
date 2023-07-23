@@ -5,6 +5,11 @@
 # define STDOUT		1
 # define STDERR		2
 
+# define M_PI		3.1415926535897
+# define BG_R		20
+# define BG_G		20
+# define BG_B		20
+
 # define SCENE_EXT	".rt"
 
 # define ERR_ARG	"Wrong number of arguments!"

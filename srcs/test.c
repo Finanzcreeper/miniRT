@@ -6,68 +6,25 @@ void	colormaker(t_color *color)
 }
 
 
-void	sphere_ambiance(t_data *data, int c)
-{
-	if (data->objects[c].sphere.color.r + data->ambient.color.r < 255)
-		data->objects[c].sphere.color.r += data->ambient.color.r;
-	else
-		data->objects[c].sphere.color.r = 255;
-	if (data->objects[c].sphere.color.g + data->ambient.color.g < 255)
-		data->objects[c].sphere.color.g += data->ambient.color.g;
-	else
-		data->objects[c].sphere.color.g = 255;
-	if (data->objects[c].sphere.color.b + data->ambient.color.b < 255)
-		data->objects[c].sphere.color.b += data->ambient.color.b;
-	else
-		data->objects[c].sphere.color.b = 255;
-}
-
-void	plane_ambiance(t_data *data, int c)
-{
-	if (data->objects[c].plane.color.r + data->ambient.color.r < 255)
-		data->objects[c].plane.color.r += data->ambient.color.r;
-	else
-		data->objects[c].plane.color.r = 255;
-	if (data->objects[c].plane.color.g + data->ambient.color.g < 255)
-		data->objects[c].plane.color.g += data->ambient.color.g;
-	else
-		data->objects[c].plane.color.g = 255;
-	if (data->objects[c].plane.color.b + data->ambient.color.b < 255)
-		data->objects[c].plane.color.b += data->ambient.color.b;
-	else
-		data->objects[c].plane.color.b = 255;
-}
-
-void	cylinder_ambiance(t_data *data, int c)
-{
-	if (data->objects[c].cylinder.color.r + data->ambient.color.r < 255)
-		data->objects[c].cylinder.color.r += data->ambient.color.r;
-	else
-		data->objects[c].cylinder.color.r = 255;
-	if (data->objects[c].cylinder.color.g + data->ambient.color.g < 255)
-		data->objects[c].cylinder.color.g += data->ambient.color.g;
-	else
-		data->objects[c].cylinder.color.g = 255;
-	if (data->objects[c].cylinder.color.b + data->ambient.color.b < 255)
-		data->objects[c].cylinder.color.b += data->ambient.color.b;
-	else
-		data->objects[c].cylinder.color.b = 255;
-}
-
 void	object_ambiance(t_data *data, int c)
 {
-	if (data->objects[c].color->r + data->ambient.color.r < 255)
-		data->objects[c].color->r += data->ambient.color.r;
+	const double	ratio = data->ambient.ratio;
+	const t_color	amb_color = data->ambient.color;
+	t_color	*obj_color;
+
+	obj_color = data->objects[c].color;
+	if (obj_color->r + amb_color.r * ratio < 255)
+		obj_color->r += amb_color.r * ratio;
 	else
-		data->objects[c].color->r = 255;
-	if (data->objects[c].color->g + data->ambient.color.g < 255)
-		data->objects[c].color->g += data->ambient.color.g;
+		obj_color->r = 255;
+	if (obj_color->g + amb_color.g * ratio < 255)
+		obj_color->g += amb_color.g * ratio;
 	else
-		data->objects[c].color->g = 255;
-	if (data->objects[c].color->b + data->ambient.color.b < 255)
-		data->objects[c].color->b += data->ambient.color.b;
+		obj_color->g = 255;
+	if (obj_color->b + amb_color.b * ratio < 255)
+		obj_color->b += amb_color.b * ratio;
 	else
-		data->objects[c].color->b = 255;
+		obj_color->b = 255;
 }
 
 void	apply_ambience_light(t_data *data)
@@ -77,14 +34,6 @@ void	apply_ambience_light(t_data *data)
 	c = -1;
 	while (++c < data->n_obj)
 		object_ambiance(data, c);
-	// {
-	// 	if (data->objects[c].type == SPHERE)
-	// 		sphere_ambiance(data, c);
-	// 	if (data->objects[c].type == CYLINDER)
-	// 		cylinder_ambiance(data, c);
-	// 	if (data->objects[c].type == PLANE)
-	// 		plane_ambiance(data, c);
-	// }
 }
 
 void	draw(mlx_image_t *img, t_data *data)
@@ -144,9 +93,9 @@ void	setup_window(mlx_t **mlx)
 	mlx_set_window_size(*mlx, width, height);
 }
 
-uint32_t	setcolor(void)
+uint32_t	bg_color(void)
 {
-	return (255 << 24 | 0 << 16 | 0 << 8 | 255);
+	return (BG_R << 24 | BG_G << 16 | BG_B << 8 | 255);
 }
 
 void	draw_sphere(mlx_image_t *img, t_data *data)
@@ -155,7 +104,6 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 	int			w;
 	t_ray		ray;
 	t_point		hitpoint;
-	int			count = 0;
 
 	colormaker(&data->ambient.color);
 	colormaker(data->objects[0].color);
@@ -168,16 +116,11 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 			ray = init_ray(data, img, h, w);
 			hitpoint = sphere_intersection(ray, data->objects[0].sphere);
 			if (hit_nothing(hitpoint))
-				mlx_put_pixel(img, w, h, data->ambient.color.mlxcolor);
+				mlx_put_pixel(img, w, h, bg_color());
 			else
-			{
-				++count;
-				//printf("h: %d, w: %d, %f %f %f\n", h, w, hitpoint.x, hitpoint.y, hitpoint.z);
-				mlx_put_pixel(img, w, h, setcolor());
-			}
+				mlx_put_pixel(img, w, h, data->objects[0].color->mlxcolor);
 		}
 	}
-	printf("final: %d\n", count);
 }
 
 int	test(t_data *data)

@@ -3,6 +3,7 @@
 		"cstdlib": "c",
 		"random": "c",
 		"string.h": "c",
-		"minirt_defines.h": "c"
+		"minirt_defines.h": "c",
+		"minirt.h": "c"
 	}
 }

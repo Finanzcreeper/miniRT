@@ -1,5 +1,6 @@
 #include "miniRT.h"
 
+/* Scale a vector. */
 t_vector	vec_scale(t_vector v1, double scale)
 {
 	t_vector	result;
@@ -10,11 +11,13 @@ t_vector	vec_scale(t_vector v1, double scale)
 	return (result);
 }
 
+/* Calculate the dot product of two vectors. */
 double	vec_dot(t_vector v1, t_vector v2)
 {
 	return ((v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z));
 }
 
+/* Calculate the cross product of two vectors. */
 t_vector	vec_cross(t_vector v1, t_vector v2)
 {
 	t_vector result;
@@ -25,6 +28,7 @@ t_vector	vec_cross(t_vector v1, t_vector v2)
 	return (result);
 }
 
+/* Normalize a vector. */
 t_vector	vec_normalize(t_vector v)
 {
 	const double	mag = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);

@@ -24,32 +24,32 @@ also depending on this more or less places after the decimal point become useful
 (1;1.5) roundet up in 5px = 1Unit
 
 	 y
-	2|                         
-	 |                         
-	 |                         
-	 |                         
-	 |                         
-	1|       •                 
-	 |                         
-	 |                         
-	 |                         
-	 |                         
+	2|
+	 |
+	 |
+	 |
+	 |
+	1|       •
+	 |
+	 |
+	 |
+	 |
 	0O-------------------------x
 	 0    1    2    3    4    5
 
 (1;1.5) rounded down in 5px = 1Unit
 
 	 y
-	2|                         
-	 |                         
-	 |                         
-	 |                         
-	 |                         
-	1|      •                  
-	 |                         
-	 |                         
-	 |                         
-	 |                         
+	2|
+	 |
+	 |
+	 |
+	 |
+	1|      •
+	 |
+	 |
+	 |
+	 |
 	0O-------------------------x
 	 0    1    2    3    4    5
 
@@ -57,16 +57,16 @@ also depending on this more or less places after the decimal point become useful
 (1;1.5) line from (1;1.5) to (3;2) in 5px = 1Unit
 
 	 y
-	2|              •          
-	 |            ••           
-	 |          ••             
-	 |         •               
-	 |       ••                
-	1|      •                  
-	 |                         
-	 |                         
-	 |                         
-	 |                         
+	2|              •
+	 |            ••
+	 |          ••
+	 |         •
+	 |       ••
+	1|      •
+	 |
+	 |
+	 |
+	 |
 	0O-------------------------x
 	 0    1    2    3    4    5
 
@@ -88,3 +88,10 @@ for sphere itself its (0;0;0).
 
 define a sphere...
 radius of sphere = (x;0;0).
+
+
+Some stuff to implement:
+The backside of the plane, maybe check vector and its opposite vector as well
+for example 0,0,1 and 0,0,-1 should probably both show color.
+
+Inside the object, what needs to be handled differently is the light/shadow/shading

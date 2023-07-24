@@ -89,7 +89,7 @@ void	setup_window(mlx_t **mlx)
 	// width = 1;
 	// height = 1;
 	*mlx = mlx_init(width, height, "miniRT", true);
-	// mlx_get_monitor_size(0, &width, &height);
+	//mlx_get_monitor_size(0, &width, &height);
 	mlx_set_window_size(*mlx, width, height);
 }
 
@@ -122,6 +122,8 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 				if (ray.light)
 				{
 					t_color *color = &ray.color;
+					// ratio problem: when light is behind the object it will be transparent.
+					// only as a proof of concept that the facing ratio calcuation works for now.
 					color->mlxcolor = (color->r << 24 | color->g << 16 | color->b << 8 | (int) (255 * ray.facing_ratio));
 					mlx_put_pixel(img, w, h, ray.color.mlxcolor);
 				}

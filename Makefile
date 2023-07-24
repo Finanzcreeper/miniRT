@@ -1,5 +1,6 @@
 NAME = miniRT
 
+_DIR = parser utils calc
 _SRC = main.c init.c test.c \
        parser/basic.c parser/object.c parser/params.c parser/utils.c \
 	   parser/parser.c \
@@ -9,11 +10,12 @@ _SRC = main.c init.c test.c \
 _INC = miniRT_defines.h miniRT_types.h miniRT.h
 SRC = $(addprefix $(SRCDIR)/, $(_SRC))
 INC = $(addprefix $(SRCDIR)/, $(_INC))
-OBJ = $(SRC:.c=.o)
+OBJ = $(addprefix $(OBJDIR)/, $(_SRC:.c=.o))
 
 CC = cc
 RM = /bin/rm -rf
 
+OBJDIR = objs
 SRCDIR = srcs
 LIBDIR = libft
 MLXDIR = MLX42
@@ -49,7 +51,8 @@ $(LIBMLX) :
 	@echo "Building MLX42..."
 	@cd $(MLXDIR); cmake -B build $(MUTE); cmake --build build -j4 $(MUTE)
 
-%.o : %.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(OBJDIR) && cd $(OBJDIR) && mkdir -p $(_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $< $(IFLAGS)
 
 clean :

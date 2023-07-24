@@ -20,6 +20,8 @@ int			ft_strarrlen(char **arr);
 void		ft_strarrfree(char **arr);
 void		ft_error(char *msg, bool toexit, t_data *data);
 void		ft_exit(t_data *data, int status);
+void		ft_free(t_data *data);
+void		ft_close_hook(void *param);
 double		ft_strtod(char *nbr, bool *success);
 char		*ft_read_file(const char *filename);
 

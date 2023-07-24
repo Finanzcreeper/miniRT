@@ -28,6 +28,6 @@ int	main(int ac, char **av)
 	init_data(&data);
 	load_data(av[1], &data);
 	test(&data);
-	ft_exit(&data, EXIT_SUCCESS);
+	//ft_free(&data);
 	return (EXIT_SUCCESS);
 }

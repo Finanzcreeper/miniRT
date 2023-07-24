@@ -90,7 +90,7 @@ void	setup_window(mlx_t **mlx)
 	// height = 1;
 	*mlx = mlx_init(width, height, "miniRT", true);
 	//mlx_get_monitor_size(0, &width, &height);
-	mlx_set_window_size(*mlx, width, height);
+	//mlx_set_window_size(*mlx, width, height);
 }
 
 uint32_t	bg_color(void)
@@ -145,6 +145,7 @@ int	test(t_data *data)
 	apply_ambience_light(data);
 	draw_sphere(img, data);
 	mlx_image_to_window(data->mlx, img, 0, 0);
+	mlx_close_hook(data->mlx, &ft_close_hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 	return (0);

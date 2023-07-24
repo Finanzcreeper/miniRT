@@ -4,7 +4,7 @@ _SRC = main.c init.c test.c \
        parser/basic.c parser/object.c parser/params.c parser/utils.c \
 	   parser/parser.c \
 	   calc/vector.c calc/point.c calc/basic.c calc/intersection.c \
-	   calc/shadow.c \
+	   calc/shadow.c calc/facing_ratio.c \
        utils/ft_read_file.c utils/ft_strarr.c utils/ft_exit.c
 _INC = miniRT_defines.h miniRT_types.h miniRT.h
 SRC = $(addprefix $(SRCDIR)/, $(_SRC))

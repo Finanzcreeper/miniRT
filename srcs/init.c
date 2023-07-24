@@ -24,6 +24,7 @@ t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)
 
 	float	ndc_x = (width + 0.5f) / img->width * 2.0f - 1.0f; // remapping from [0, 1] to [-1, 1]
 	float	ndc_y = 1.0f - (height+ 0.5f) / img->height * 2.0f; // for y, up is positive
+	//float	ndc_y = (height+ 0.5f) / img->height * 2.0f - 1.0f;
 
 	float z = -1.0f; // focal length by convention
 	float r = tan((data->camera.fov * (M_PI / 180)) / 2.0f); // field of view

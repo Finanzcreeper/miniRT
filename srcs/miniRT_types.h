@@ -104,6 +104,7 @@ typedef struct s_ray
 	bool		light;
 	double		t_obj;
 	double		t_light;
+	double		facing_ratio;
 }	t_ray;
 
 typedef struct s_quadeq

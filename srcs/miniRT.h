@@ -38,7 +38,8 @@ bool		parse_cylinder(char **infos, int *idx, t_data *data);
 void		parse_content(t_data *data, char *content);
 
 /* Calculations. */
-t_vector	point_diff(t_point v1, t_point v2);
+t_vector	point_diff(t_point p1, t_point p2);
+t_vector	vec_subtract(t_vector v1, t_vector v2);
 double		vec_dot(t_vector v1, t_vector v2);
 t_vector	vec_cross(t_vector v1, t_vector v2);
 t_vector	vec_normalize(t_vector v);
@@ -53,6 +54,9 @@ bool		block_sphere(t_ray *ray, t_sphere *sphere);
 bool		block_plane(t_ray *ray, t_plane *plane);
 
 void		intersection(t_ray *ray, t_data *data);
+
+double		sphere_facing_ratio(t_point hitpoint, t_sphere sphere, t_light light);
+double		plane_facing_ratio(t_point hitpoint, t_plane plane, t_light light);
 
 /* Testing. */
 int			test(t_data *data);

@@ -31,8 +31,8 @@ bool	block_sphere(t_ray *ray, t_sphere *sphere)
 	solve_quadeq(&eq);
 	if (eq.discriminant < 0)
 		return (false);
-	if (eq.t1 < 0 && eq.t2 < 0)
-		return (false); // if hits behind?
+	// if (eq.t1 < 0 && eq.t2 < 0)
+	// 	return (false); // if hits behind?
 	return (true);
 }
 

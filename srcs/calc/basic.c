@@ -9,17 +9,12 @@ void	solve_quadeq(t_quadeq *eq)
 	eq->t2 = (-eq->b - sqrt(eq->discriminant)) / (2 * eq->a);
 }
 
-t_point	get_hitpoint(t_ray ray, double t)
+t_vector	vec_subtract(t_vector v1, t_vector v2)
 {
-	t_point	hitpoint;
+	t_vector	result;
 
-	hitpoint.x = ray.origin.x + t * ray.direction.x;
-	hitpoint.y = ray.origin.y + t * ray.direction.y;
-	hitpoint.z = ray.origin.z + t * ray.direction.z;
-	return (hitpoint);
-}
-
-bool	hit_nothing(t_point point)
-{
-	return (point.x == INFINITY && point.y == INFINITY && point.z == INFINITY);
+	result.x = v1.x - v2.x;
+	result.y = v1.y - v2.y;
+	result.z = v1.z - v2.z;
+	return (result);
 }

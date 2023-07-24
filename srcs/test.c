@@ -120,9 +120,14 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 			{
 				colormaker(&ray.color);
 				if (ray.light)
+				{
+					t_color *color = &ray.color;
+					color->mlxcolor = (color->r << 24 | color->g << 16 | color->b << 8 | (int) (255 * ray.facing_ratio));
 					mlx_put_pixel(img, w, h, ray.color.mlxcolor);
+				}
 				else
-					mlx_put_pixel(img, w, h, ray.color.mlxcolor - 100); // shadow, change alpha channel
+					mlx_put_pixel(img, w, h, bg_color());
+					//mlx_put_pixel(img, w, h, ray.color.mlxcolor - 100); // test; shadow, change alpha channel
 			}
 		}
 	}

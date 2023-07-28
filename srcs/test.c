@@ -2,7 +2,7 @@
 
 void	colormaker(t_color *color)
 {
-	color->mlxcolor = (color->r << 24 | color->g << 16 | color->b << 8 | 255);
+	color->mlxcolor = (color->r << 24 | color->g << 16 | color->b << 8 | color->a);
 }
 
 

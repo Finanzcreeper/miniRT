@@ -9,6 +9,10 @@
 # define BG_R		20
 # define BG_G		20
 # define BG_B		20
+# define BG_A		255
+# define DEFAULT_A	255
+# define COLOR_MAX	255
+# define COLOR_MIN	0
 
 # define SCENE_EXT	".rt"
 

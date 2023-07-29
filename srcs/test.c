@@ -1,8 +1,14 @@
 #include "miniRT.h"
 
-void	colormaker(t_color *color)
+int	mlxcolor(t_color color)
 {
-	color->mlxcolor = (color->r << 24 | color->g << 16 | color->b << 8 | color->a);
+	const int r = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.r));
+	const int g = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.g));
+	const int b = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.b));
+	const int a = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.a));
+
+	printf("%d %d %d %d\n", r, g, b, a);
+	return (r << 24 | g << 16 | b << 8 | a);
 }
 
 
@@ -48,7 +54,6 @@ void	draw(mlx_image_t *img, t_data *data)
 	data->ambient.color.r = 0;
 	data->ambient.color.g = 255;
 	data->ambient.color.b = 0;
-	colormaker(&data->ambient.color);
 	i = data->ambient.color.r;
 	if (data->ambient.color.r > data->ambient.color.g)
 		i = data->ambient.color.g;
@@ -67,12 +72,11 @@ void	draw(mlx_image_t *img, t_data *data)
 				data->ambient.color.g += 1;
 			if (data->ambient.color.b != 255)
 				data->ambient.color.b += 1;
-			colormaker(&data->ambient.color);
 			f = 0;
 		}
 		while (h < img->height)
 		{
-			mlx_put_pixel(img, c, h++, data->ambient.color.mlxcolor);
+			mlx_put_pixel(img, c, h++, mlxcolor(data->ambient.color));
 		}
 		h = 0;
 		c++;
@@ -104,8 +108,8 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 	int			w;
 	t_ray		ray;
 
-	colormaker(&data->ambient.color);
-	colormaker(data->objects[0].color);
+	// colormaker(&data->ambient.color);
+	// colormaker(data->objects[0].color);
 	w = -1;
 	while (++w < (int) img->width)
 	{
@@ -118,14 +122,12 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 				mlx_put_pixel(img, w, h, bg_color());
 			else
 			{
-				colormaker(&ray.color);
 				if (ray.light)
 				{
-					t_color *color = &ray.color;
 					// ratio problem: when light is behind the object it will be transparent.
 					// only as a proof of concept that the facing ratio calcuation works for now.
-					color->mlxcolor = (color->r << 24 | color->g << 16 | color->b << 8 | (int) (255 * ray.facing_ratio));
-					mlx_put_pixel(img, w, h, ray.color.mlxcolor);
+					//color->mlxcolor = (color->r << 24 | color->g << 16 | color->b << 8 | (int) (255 * ray.facing_ratio));
+					mlx_put_pixel(img, w, h, mlxcolor(ray.color));
 				}
 				else
 					mlx_put_pixel(img, w, h, bg_color());
@@ -140,9 +142,8 @@ int	test(t_data *data)
 	mlx_image_t	*img;
 
 	setup_window(&data->mlx);
-	colormaker(&data->ambient.color);
 	img = mlx_new_image(data->mlx, data->mlx->width, data->mlx->height);
-	apply_ambience_light(data);
+	//apply_ambience_light(data);
 	draw_sphere(img, data);
 	mlx_image_to_window(data->mlx, img, 0, 0);
 	mlx_close_hook(data->mlx, &ft_close_hook, data);

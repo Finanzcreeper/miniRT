@@ -20,9 +20,10 @@ bool	parse_color(char *s, t_color *color)
 		if (ft_atoi(parts[i]) < 0 || ft_atoi(parts[i]) > 255)
 			return (ft_strarrfree(parts), false);
 	}
-	color->r = ft_atoi(parts[0]);
-	color->g = ft_atoi(parts[1]);
-	color->b = ft_atoi(parts[2]);
+	color->r = (double) ft_atoi(parts[0]);
+	color->g = (double) ft_atoi(parts[1]);
+	color->b = (double) ft_atoi(parts[2]);
+	color->a = (double) DEFAULT_A;
 	return (ft_strarrfree(parts), true);
 }
 /* Parse a point in the format of x,y,z, returns whether it's successful. */

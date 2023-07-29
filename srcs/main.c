@@ -13,7 +13,7 @@ static void	load_data(char *file, t_data *data)
 	if (!*data->file_content)
 		ft_error(ERR_EMPTY, true, data);
 	data->n_obj = obj_count(data->file_content);
-	data->objects = ft_calloc(data->n_obj, sizeof(t_object));
+	data->objects = (t_object *) ft_calloc(data->n_obj, sizeof(t_object));
 	if (!data->objects)
 		ft_error(ERR_MALLOC, true, data);
 	parse_content(data, data->file_content);

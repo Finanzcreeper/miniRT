@@ -51,7 +51,7 @@ $(LIBMLX) :
 	@echo "Building MLX42..."
 	@cd $(MLXDIR); cmake -B build $(MUTE); cmake --build build -j4 $(MUTE)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(INC)
 	@mkdir -p $(OBJDIR) && cd $(OBJDIR) && mkdir -p $(_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $< $(IFLAGS)
 

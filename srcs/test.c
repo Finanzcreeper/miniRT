@@ -1,13 +1,12 @@
 #include "miniRT.h"
 
-int	mlxcolor(t_color color)
+uint32_t	mlxcolor(t_color color)
 {
 	const int r = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.r));
 	const int g = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.g));
 	const int b = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.b));
 	const int a = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.a));
 
-	printf("%d %d %d %d\n", r, g, b, a);
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
@@ -99,7 +98,7 @@ void	setup_window(mlx_t **mlx)
 
 uint32_t	bg_color(void)
 {
-	return (BG_R << 24 | BG_G << 16 | BG_B << 8 | 255);
+	return (BG_R << 24 | BG_G << 16 | BG_B << 8 | BG_A);
 }
 
 void	draw_sphere(mlx_image_t *img, t_data *data)
@@ -108,8 +107,6 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 	int			w;
 	t_ray		ray;
 
-	// colormaker(&data->ambient.color);
-	// colormaker(data->objects[0].color);
 	w = -1;
 	while (++w < (int) img->width)
 	{

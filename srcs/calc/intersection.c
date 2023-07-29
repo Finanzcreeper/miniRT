@@ -63,6 +63,11 @@ void	hit_plane(t_ray *ray, t_plane *plane, t_data *data, int idx)
 	}
 }
 
+void	hit_cylinder(t_ray *ray, t_cylinder *cylinder, t_data *data, int idx)
+{
+
+}
+
 /* Send a ray to check for all intersections of all the objects in the scene. */
 void	intersection(t_ray *ray, t_data *data)
 {
@@ -75,5 +80,7 @@ void	intersection(t_ray *ray, t_data *data)
 			hit_sphere(ray, &data->objects[i].sphere, data, i);
 		else if (data->objects[i].type == PLANE)
 			hit_plane(ray, &data->objects[i].plane, data, i);
+		else if (data->objects[i].type == CYLINDER)
+			hit_cylinder(ray, &data->objects[i].cylinder, data, i);
 	}
 }

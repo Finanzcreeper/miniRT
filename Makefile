@@ -1,7 +1,7 @@
 NAME = miniRT
 
 _DIR = parser utils calc
-_SRC = main.c init.c test.c \
+_SRC = main.c init.c test.c keyhook.c \
        parser/basic.c parser/object.c parser/params.c parser/utils.c \
 	   parser/parser.c \
 	   calc/vector.c calc/point.c calc/basic.c calc/intersection.c \

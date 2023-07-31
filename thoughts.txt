@@ -91,9 +91,6 @@ radius of sphere = (x;0;0).
 
 
 Some stuff to implement:
-The backside of the plane, maybe check vector and its opposite vector as well
-for example 0,0,1 and 0,0,-1 should probably both show color.
-
 Inside the object, what needs to be handled differently is the light/shadow/shading
 
 MLX42 library seems to have new leaks that wasn't there before the update of the system...

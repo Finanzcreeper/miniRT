@@ -67,8 +67,11 @@ typedef struct s_plane
 typedef struct s_cylinder
 {
 	t_point		center;
+	t_point		top;
+	t_point		bottom;
 	t_vector	vector;
 	double		diameter;
+	double		radius;
 	double		height;
 	t_color		color;
 }	t_cylinder;
@@ -102,9 +105,10 @@ typedef struct s_ray
 	t_vector	direction;
 	t_color		color;
 	bool		light;
+	bool		in_obj;
 	double		t_obj;
 	double		t_light;
-	double		facing_ratio;
+	double		fr;
 }	t_ray;
 
 typedef struct s_quadeq
@@ -114,6 +118,7 @@ typedef struct s_quadeq
 	double	c;
 	double	t1;
 	double	t2;
+	double	tmin;
 	double	discriminant;
 }	t_quadeq;
 

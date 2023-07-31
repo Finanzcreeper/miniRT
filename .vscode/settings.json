@@ -4,6 +4,7 @@
 		"random": "c",
 		"string.h": "c",
 		"minirt_defines.h": "c",
-		"minirt.h": "c"
+		"minirt.h": "c",
+		"vector": "c"
 	}
 }

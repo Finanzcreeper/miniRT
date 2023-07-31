@@ -14,7 +14,9 @@ bool	in_light(t_data *data, t_point hitpoint, int idx)
 		if ((data->objects[i].type == SPHERE
 			&& block_sphere(&shadow_ray, &data->objects[i].sphere))
 			|| (data->objects[i].type == PLANE
-			&& block_plane(&shadow_ray, &data->objects[i].plane)))
+			&& block_plane(&shadow_ray, &data->objects[i].plane))
+			|| (data->objects[i].type == CYLINDER
+			&& block_cylinder(&shadow_ray, &data->objects[i].cylinder)))
 			return (false);
 	}
 	return (true);
@@ -31,8 +33,8 @@ bool	block_sphere(t_ray *ray, t_sphere *sphere)
 	solve_quadeq(&eq);
 	if (eq.discriminant < 0)
 		return (false);
-	// if (eq.t1 < 0 && eq.t2 < 0)
-	// 	return (false); // if hits behind?
+	if (eq.t1 < 0 && eq.t2 < 0)
+		return (false);
 	return (true);
 }
 
@@ -42,10 +44,30 @@ bool	block_plane(t_ray *ray, t_plane *plane)
 	const t_vector	op = point_diff(ray->origin, plane->point);
 	double			t;
 
-	if (denom < 1e-6)
+	if (fabs(denom) < 1e-6)
 		return (false);
 	t = - vec_dot(plane->vector, op) / denom;
 	if (t < 0)
+		return (false);
+	return (true);
+}
+
+
+bool	block_cylinder(t_ray *ray, t_cylinder *cylinder)
+{
+	const t_vector	oc = point_diff(ray->origin, cylinder->top);
+	t_quadeq		eq;
+
+	eq.a = vec_dot(ray->direction, ray->direction) -
+		pow(vec_dot(ray->direction, cylinder->vector), 2);
+	eq.b = 2 * (vec_dot(ray->direction, oc) - vec_dot(ray->direction,
+		cylinder->vector) * vec_dot(oc, cylinder->vector));
+	eq.c = vec_dot(oc, oc) - pow(vec_dot(oc, cylinder->vector), 2) -
+		pow(cylinder->radius, 2);
+	solve_quadeq(&eq);
+	if (eq.discriminant < 0)
+		return (false);
+	if (eq.t1 < 0 && eq.t2 < 0)
 		return (false);
 	return (true);
 }

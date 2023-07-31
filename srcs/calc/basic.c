@@ -7,6 +7,7 @@ void	solve_quadeq(t_quadeq *eq)
 		return ;
 	eq->t1 = (-eq->b + sqrt(eq->discriminant)) / (2 * eq->a);
 	eq->t2 = (-eq->b - sqrt(eq->discriminant)) / (2 * eq->a);
+	eq->tmin = fmin(eq->t1, eq->t2);
 }
 
 t_vector	vec_subtract(t_vector v1, t_vector v2)

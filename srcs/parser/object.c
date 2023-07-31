@@ -40,6 +40,18 @@ bool	parse_plane(char **infos, int *idx, t_data *data)
 	return (++(*idx), true);
 }
 
+void	calc_cylinder(t_cylinder *obj)
+{
+	obj->radius = obj->diameter / 2;
+	obj->top.x = obj->center.x + obj->vector.x * obj->height / 2;
+	obj->top.y = obj->center.y + obj->vector.y * obj->height / 2;
+	obj->top.z = obj->center.z + obj->vector.z * obj->height / 2;
+	obj->vector = vec_negate(obj->vector);
+	obj->bottom.x = obj->top.x + obj->vector.x * obj->height;
+	obj->bottom.y = obj->top.y + obj->vector.y * obj->height;
+	obj->bottom.z = obj->top.z + obj->vector.z * obj->height;
+}
+
 bool	parse_cylinder(char **infos, int *idx, t_data *data)
 {
 	t_cylinder	*obj;
@@ -61,5 +73,5 @@ bool	parse_cylinder(char **infos, int *idx, t_data *data)
 		ft_error(ERR_CY, true, data);
 	if (!parse_color(infos[5], &obj->color))
 		ft_error(ERR_CY, true, data);
-	return (++(*idx), true);
+	return (calc_cylinder(obj), ++(*idx), true);
 }

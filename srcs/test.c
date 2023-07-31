@@ -1,14 +1,51 @@
 #include "miniRT.h"
 
-uint32_t	mlxcolor(t_color color)
-{
-	const int r = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.r));
-	const int g = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.g));
-	const int b = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.b));
-	const int a = (int) fmax(COLOR_MIN, fmin(COLOR_MAX, color.a));
+#define SHADING_FACTOR	0.2
 
-	return (r << 24 | g << 16 | b << 8 | a);
+double	clamp(double val, double min, double max)
+{
+	return (fmax(min, fmin(max, val)));
 }
+
+uint32_t	mlxcolor(t_color color, double fr, t_data data, bool light)
+{
+	double	r;
+	double	g;
+	double	b;
+
+	if (!light)
+	{
+		r = color.r * SHADING_FACTOR * (data.light.ratio);
+		g = color.g * SHADING_FACTOR * (data.light.ratio);
+		b = color.b * SHADING_FACTOR * (data.light.ratio);
+	}
+	else
+	{
+		r = color.r * fr * (data.light.ratio);
+		g = color.g * fr * (data.light.ratio);
+		b = color.b * fr * (data.light.ratio);
+	}
+	r = fmax(COLOR_MIN, fmin(COLOR_MAX, r + data.ambient.ratio * data.ambient.color.r));
+	g = fmax(COLOR_MIN, fmin(COLOR_MAX, g + data.ambient.ratio * data.ambient.color.g));
+	b = fmax(COLOR_MIN, fmin(COLOR_MAX, b + data.ambient.ratio * data.ambient.color.b));
+	return ((int) r << 24 | (int) g << 16 | (int) b << 8 | (int) color.a);
+}
+
+// void	colormixer(t_ray *ray)
+// {
+// 	if (!ray->light)
+// 	{
+// 		ray->color.r = ray->color.r * SHADING_FACTOR;
+// 		ray->color.g = ray->color.g * SHADING_FACTOR;
+// 		ray->color.b = ray->color.b * SHADING_FACTOR;
+// 	}
+// 	else
+// 	{
+// 		r = color.r + fr * data.light.color.r * data.light.ratio * 0.5;
+// 		g = color.g + fr * data.light.color.g * data.light.ratio * 0.5;
+// 		b = color.b + fr * data.light.color.b * data.light.ratio * 0.5;
+// 	}
+// }
 
 
 void	object_ambiance(t_data *data, int c)
@@ -75,7 +112,7 @@ void	draw(mlx_image_t *img, t_data *data)
 		}
 		while (h < img->height)
 		{
-			mlx_put_pixel(img, c, h++, mlxcolor(data->ambient.color));
+			//mlx_put_pixel(img, c, h++, mlxcolor(data->ambient.color, 1, true));
 		}
 		h = 0;
 		c++;
@@ -101,7 +138,7 @@ uint32_t	bg_color(void)
 	return (BG_R << 24 | BG_G << 16 | BG_B << 8 | BG_A);
 }
 
-void	draw_sphere(mlx_image_t *img, t_data *data)
+void	draw_img(mlx_image_t *img, t_data *data)
 {
 	int			h;
 	int			w;
@@ -118,18 +155,8 @@ void	draw_sphere(mlx_image_t *img, t_data *data)
 			if (ray.t_obj == INFINITY)
 				mlx_put_pixel(img, w, h, bg_color());
 			else
-			{
-				if (ray.light)
-				{
-					// ratio problem: when light is behind the object it will be transparent.
-					// only as a proof of concept that the facing ratio calcuation works for now.
-					//color->mlxcolor = (color->r << 24 | color->g << 16 | color->b << 8 | (int) (255 * ray.facing_ratio));
-					mlx_put_pixel(img, w, h, mlxcolor(ray.color));
-				}
-				else
-					mlx_put_pixel(img, w, h, bg_color());
-					//mlx_put_pixel(img, w, h, ray.color.mlxcolor - 100); // test; shadow, change alpha channel
-			}
+				mlx_put_pixel(img, w, h, mlxcolor(ray.color, ray.fr, *data,
+					ray.light));
 		}
 	}
 }
@@ -141,9 +168,10 @@ int	test(t_data *data)
 	setup_window(&data->mlx);
 	img = mlx_new_image(data->mlx, data->mlx->width, data->mlx->height);
 	//apply_ambience_light(data);
-	draw_sphere(img, data);
+	draw_img(img, data);
 	mlx_image_to_window(data->mlx, img, 0, 0);
 	mlx_close_hook(data->mlx, &ft_close_hook, data);
+	mlx_key_hook(data->mlx, &ft_keyhook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 	return (0);

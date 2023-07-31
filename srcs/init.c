@@ -37,6 +37,7 @@ t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)
 
 	ray.direction = vec_normalize(ray.direction);
 	ray.light = true;
+	ray.in_obj = false;
 	ray.t_obj = INFINITY;
 	ray.t_light = INFINITY;
 	return (ray);

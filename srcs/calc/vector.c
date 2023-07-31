@@ -39,3 +39,13 @@ t_vector	vec_normalize(t_vector v)
 	result.z = v.z / mag;
 	return (result);
 }
+
+t_vector	vec_negate(t_vector v)
+{
+	t_vector result;
+
+	result.x = -v.x;
+	result.y = -v.y;
+	result.z = -v.z;
+	return (result);
+}

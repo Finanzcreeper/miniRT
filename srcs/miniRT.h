@@ -45,20 +45,26 @@ t_vector	vec_subtract(t_vector v1, t_vector v2);
 double		vec_dot(t_vector v1, t_vector v2);
 t_vector	vec_cross(t_vector v1, t_vector v2);
 t_vector	vec_normalize(t_vector v);
+t_vector	vec_negate(t_vector v);
 void		solve_quadeq(t_quadeq *eq);
 t_point		get_hitpoint(t_ray ray, double t);
 void		hit_sphere(t_ray *ray, t_sphere *sphere, t_data *data, int idx);
 void		hit_plane(t_ray *ray, t_plane *plane, t_data *data, int idx);
-bool		hit_nothing(t_point point);
+
 bool		in_light(t_data *data, t_point hitpoint, int idx);
 
 bool		block_sphere(t_ray *ray, t_sphere *sphere);
 bool		block_plane(t_ray *ray, t_plane *plane);
-
+bool		block_cylinder(t_ray *ray, t_cylinder *cylinder);
 void		intersection(t_ray *ray, t_data *data);
 
 double		sphere_facing_ratio(t_point hitpoint, t_sphere sphere, t_light light);
 double		plane_facing_ratio(t_point hitpoint, t_plane plane, t_light light);
+double		cy_fr_side(t_point hitpoint, t_cylinder cy, t_light light);
+double		cy_fr_top(t_point hitpoint, t_cylinder cy, t_light light);
+double		cy_fr_bottom(t_point hitpoint, t_cylinder cy, t_light light);
+
+void		ft_keyhook(mlx_key_data_t keydata, void *param);
 
 /* Testing. */
 int			test(t_data *data);

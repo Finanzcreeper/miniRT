@@ -30,10 +30,10 @@ t_point	get_hitpoint(t_ray ray, double t)
 	return (hitpoint);
 }
 
-bool	hit_nothing(t_point point)
-{
-	return (point.x == INFINITY && point.y == INFINITY && point.z == INFINITY);
-}
+// bool	hit_nothing(t_point point)
+// {
+// 	return (point.x == INFINITY && point.y == INFINITY && point.z == INFINITY);
+// }
 
 
 // t_vector	vec_multiply(t_vector v1, t_vector v2)

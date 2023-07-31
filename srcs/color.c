@@ -18,8 +18,8 @@ uint32_t	mlxcolor(t_color color, double fr, t_data data, bool light)
 		g = color.g * fr * (data.light.ratio);
 		b = color.b * fr * (data.light.ratio);
 	}
-	r = fmax(COLOR_MIN, fmin(COLOR_MAX, r + data.ambient.ratio * data.ambient.color.r));
-	g = fmax(COLOR_MIN, fmin(COLOR_MAX, g + data.ambient.ratio * data.ambient.color.g));
-	b = fmax(COLOR_MIN, fmin(COLOR_MAX, b + data.ambient.ratio * data.ambient.color.b));
+	r = fmax(COLOR_MIN, fmin(COLOR_MAX, r + data.ambient.ratio * (data.ambient.color.r + color.r) / 2));
+	g = fmax(COLOR_MIN, fmin(COLOR_MAX, g + data.ambient.ratio * (data.ambient.color.g + color.g) / 2));
+	b = fmax(COLOR_MIN, fmin(COLOR_MAX, b + data.ambient.ratio * (data.ambient.color.b + color.b) / 2));
 	return ((int) r << 24 | (int) g << 16 | (int) b << 8 | (int) color.a);
 }

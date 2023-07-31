@@ -28,14 +28,18 @@ void	rotation(t_vector *vec, t_action action, t_axis axis)
 
 bool	adjust_camera(t_action action, t_data *data)
 {
-	(void) action;
-	(void) data;
+	if (data->action == TRANSLATION)
+		translation(&data->camera.view, action, data->axis);
+	if (data->action == ROTATION)
+		rotation(&data->camera.orientation, action, data->axis);
+	render(data->img, data);
 	return (true);
 }
 
 bool	adjust_light(t_action action, t_data *data)
 {
-	(void) action;
-	(void) data;
+	if (data->action == TRANSLATION)
+		translation(&data->light.source, action, data->axis);
+	render(data->img, data);
 	return (true);
 }

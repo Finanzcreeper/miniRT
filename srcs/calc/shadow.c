@@ -9,14 +9,14 @@ bool	in_light(t_data *data, t_point hitpoint, int idx)
 	shadow_ray_dir = vec_normalize(point_diff(data->light.source, hitpoint));
 	shadow_ray = init_shadow_ray(hitpoint, shadow_ray_dir);
 	i = -1;
-	while (++i < data->n_obj && i != idx)
+	while (++i < data->n_obj)
 	{
-		if ((data->objs[i].type == SPHERE
+		if (i != idx && ((data->objs[i].type == SPHERE
 			&& block_sphere(&shadow_ray, &data->objs[i].sp))
 			|| (data->objs[i].type == PLANE
 			&& block_plane(&shadow_ray, &data->objs[i].pl))
 			|| (data->objs[i].type == CYLINDER
-			&& block_cylinder(&shadow_ray, &data->objs[i].cy)))
+			&& block_cylinder(&shadow_ray, &data->objs[i].cy))))
 			return (false);
 	}
 	return (true);
@@ -46,7 +46,7 @@ bool	block_plane(t_ray *ray, t_plane *plane)
 
 	if (fabs(denom) < 1e-6)
 		return (false);
-	t = - vec_dot(plane->vector, op) / denom;
+	t = -vec_dot(plane->vector, op) / denom;
 	if (t < 0)
 		return (false);
 	return (true);

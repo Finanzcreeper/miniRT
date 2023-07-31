@@ -91,11 +91,12 @@ typedef struct s_object
 {
 	int		type;
 	t_color	*color;
+	t_point	*pt;
 	union
 	{
-		t_sphere	sphere;
-		t_plane		plane;
-		t_cylinder	cylinder;
+		t_sphere	sp;
+		t_plane		pl;
+		t_cylinder	cy;
 	};
 }	t_object;
 
@@ -122,17 +123,36 @@ typedef struct s_quadeq
 	double	discriminant;
 }	t_quadeq;
 
+typedef enum e_axis
+{
+	AXIS_X,
+	AXIS_Y,
+	AXIS_Z
+}	t_axis;
+
+typedef enum e_action
+{
+	TRANSLATION,
+	ROTATION,
+	INCREMENT,
+	DECREMENT
+}	t_action;
+
 typedef struct s_data
 {
 	char		*file_content;
 	t_ambient	ambient;
 	t_camera	camera;
 	t_light		light;
-	t_object	*objects;
+	t_object	*objs;
 	int			n_obj;
 	mlx_t		*mlx;
+	mlx_image_t	*img;
 	char		**lines;
 	char		**infos;
+	int			idx;
+	int			axis;
+	int			action;
 }	t_data;
 
 #endif

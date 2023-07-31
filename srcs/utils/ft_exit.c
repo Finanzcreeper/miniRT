@@ -12,8 +12,8 @@ void	ft_free(t_data *data)
 {
 	if (data && data->file_content)
 		free(data->file_content);
-	if (data && data->objects)
-		free(data->objects);
+	if (data && data->objs)
+		free(data->objs);
 	if (data && data->lines)
 		ft_strarrfree(data->lines);
 	if (data && data->infos)

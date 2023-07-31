@@ -1,52 +1,9 @@
 #include "miniRT.h"
 
-#define SHADING_FACTOR	0.2
-
 double	clamp(double val, double min, double max)
 {
 	return (fmax(min, fmin(max, val)));
 }
-
-uint32_t	mlxcolor(t_color color, double fr, t_data data, bool light)
-{
-	double	r;
-	double	g;
-	double	b;
-
-	if (!light)
-	{
-		r = color.r * SHADING_FACTOR * (data.light.ratio);
-		g = color.g * SHADING_FACTOR * (data.light.ratio);
-		b = color.b * SHADING_FACTOR * (data.light.ratio);
-	}
-	else
-	{
-		r = color.r * fr * (data.light.ratio);
-		g = color.g * fr * (data.light.ratio);
-		b = color.b * fr * (data.light.ratio);
-	}
-	r = fmax(COLOR_MIN, fmin(COLOR_MAX, r + data.ambient.ratio * data.ambient.color.r));
-	g = fmax(COLOR_MIN, fmin(COLOR_MAX, g + data.ambient.ratio * data.ambient.color.g));
-	b = fmax(COLOR_MIN, fmin(COLOR_MAX, b + data.ambient.ratio * data.ambient.color.b));
-	return ((int) r << 24 | (int) g << 16 | (int) b << 8 | (int) color.a);
-}
-
-// void	colormixer(t_ray *ray)
-// {
-// 	if (!ray->light)
-// 	{
-// 		ray->color.r = ray->color.r * SHADING_FACTOR;
-// 		ray->color.g = ray->color.g * SHADING_FACTOR;
-// 		ray->color.b = ray->color.b * SHADING_FACTOR;
-// 	}
-// 	else
-// 	{
-// 		r = color.r + fr * data.light.color.r * data.light.ratio * 0.5;
-// 		g = color.g + fr * data.light.color.g * data.light.ratio * 0.5;
-// 		b = color.b + fr * data.light.color.b * data.light.ratio * 0.5;
-// 	}
-// }
-
 
 void	object_ambiance(t_data *data, int c)
 {
@@ -54,7 +11,7 @@ void	object_ambiance(t_data *data, int c)
 	const t_color	amb_color = data->ambient.color;
 	t_color	*obj_color;
 
-	obj_color = data->objects[c].color;
+	obj_color = data->objs[c].color;
 	if (obj_color->r + amb_color.r * ratio < 255)
 		obj_color->r += amb_color.r * ratio;
 	else
@@ -168,11 +125,11 @@ int	test(t_data *data)
 	setup_window(&data->mlx);
 	img = mlx_new_image(data->mlx, data->mlx->width, data->mlx->height);
 	//apply_ambience_light(data);
-	draw_img(img, data);
-	mlx_image_to_window(data->mlx, img, 0, 0);
-	mlx_close_hook(data->mlx, &ft_close_hook, data);
-	mlx_key_hook(data->mlx, &ft_keyhook, data);
-	mlx_loop(data->mlx);
-	mlx_terminate(data->mlx);
+	// draw_img(img, data);
+	// mlx_image_to_window(data->mlx, img, 0, 0);
+	// mlx_close_hook(data->mlx, &ft_close_hook, data);
+	// mlx_key_hook(data->mlx, &ft_keyhook, data);
+	// mlx_loop(data->mlx);
+	// mlx_terminate(data->mlx);
 	return (0);
 }

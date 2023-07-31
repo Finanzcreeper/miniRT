@@ -5,12 +5,15 @@ void	init_data(t_data *data)
 	data->file_content = NULL;
 	data->lines = NULL;
 	data->infos = NULL;
-	data->objects = NULL;
+	data->objs = NULL;
 	data->mlx = NULL;
 	data->ambient.assigned = false;
 	data->camera.assigned = false;
 	data->light.assigned = false;
 	data->n_obj = 0;
+	data->idx = CAM_IDX;
+	data->axis = AXIS_X;
+	data->action = TRANSLATION;
 }
 
 t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)

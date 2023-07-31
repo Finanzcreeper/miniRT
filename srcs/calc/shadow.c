@@ -11,12 +11,12 @@ bool	in_light(t_data *data, t_point hitpoint, int idx)
 	i = -1;
 	while (++i < data->n_obj && i != idx)
 	{
-		if ((data->objects[i].type == SPHERE
-			&& block_sphere(&shadow_ray, &data->objects[i].sphere))
-			|| (data->objects[i].type == PLANE
-			&& block_plane(&shadow_ray, &data->objects[i].plane))
-			|| (data->objects[i].type == CYLINDER
-			&& block_cylinder(&shadow_ray, &data->objects[i].cylinder)))
+		if ((data->objs[i].type == SPHERE
+			&& block_sphere(&shadow_ray, &data->objs[i].sp))
+			|| (data->objs[i].type == PLANE
+			&& block_plane(&shadow_ray, &data->objs[i].pl))
+			|| (data->objs[i].type == CYLINDER
+			&& block_cylinder(&shadow_ray, &data->objs[i].cy)))
 			return (false);
 	}
 	return (true);

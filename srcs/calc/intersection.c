@@ -121,11 +121,11 @@ void	intersection(t_ray *ray, t_data *data)
 	i = -1;
 	while (++i < data->n_obj)
 	{
-		if (data->objects[i].type == SPHERE)
-			hit_sphere(ray, &data->objects[i].sphere, data, i);
-		else if (data->objects[i].type == PLANE)
-			hit_plane(ray, &data->objects[i].plane, data, i);
-		else if (data->objects[i].type == CYLINDER)
-			hit_cylinder(ray, &data->objects[i].cylinder, data, i);
+		if (data->objs[i].type == SPHERE)
+			hit_sphere(ray, &data->objs[i].sp, data, i);
+		else if (data->objs[i].type == PLANE)
+			hit_plane(ray, &data->objs[i].pl, data, i);
+		else if (data->objs[i].type == CYLINDER)
+			hit_cylinder(ray, &data->objs[i].cy, data, i);
 	}
 }

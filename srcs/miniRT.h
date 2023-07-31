@@ -45,6 +45,9 @@ double		vec_dot(t_vector v1, t_vector v2);
 t_vector	vec_cross(t_vector v1, t_vector v2);
 t_vector	vec_normalize(t_vector v);
 t_vector	vec_negate(t_vector v);
+t_vector	rotate_x(t_vector vec, t_action action);
+t_vector	rotate_y(t_vector vec, t_action action);
+t_vector	rotate_z(t_vector vec, t_action action);
 void		solve_quadeq(t_quadeq *eq);
 t_point		get_hitpoint(t_ray ray, double t);
 void		hit_sphere(t_ray *ray, t_sphere *sphere, t_data *data, int idx);
@@ -64,6 +67,15 @@ double		cy_fr_top(t_point hitpoint, t_cylinder cy, t_light light);
 double		cy_fr_bottom(t_point hitpoint, t_cylinder cy, t_light light);
 
 void		ft_keyhook(mlx_key_data_t keydata, void *param);
+
+void		translation(t_point *pt, t_action action, t_axis axis);
+void		rotation(t_vector *vec, t_action action, t_axis axis);
+void		increment_rerender(t_data *data);
+void		decrement_rerender(t_data *data);
+void		render(mlx_image_t *img, t_data *data);
+bool		adjust_camera(t_action action, t_data *data);
+bool		adjust_light(t_action action, t_data *data);
+uint32_t	mlxcolor(t_color color, double fr, t_data data, bool light);
 
 /* Testing. */
 int			test(t_data *data);

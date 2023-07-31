@@ -95,3 +95,11 @@ Inside the object, what needs to be handled differently is the light/shadow/shad
 
 MLX42 library seems to have new leaks that wasn't there before the update of the system...
 Even the basic example has them present...
+
+TODO: translation/rotation
+
+Cylinder's shadow probably still needs fixing.
+
+Shorten some names maybe, lines are in general way too long atm.
+Delete tons of functions that weren't really used.
+Some methods to make color mixing make more sense?

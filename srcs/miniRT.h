@@ -41,7 +41,6 @@ void		parse_content(t_data *data, char *content);
 
 /* Calculations. */
 t_vector	point_diff(t_point p1, t_point p2);
-t_vector	vec_subtract(t_vector v1, t_vector v2);
 double		vec_dot(t_vector v1, t_vector v2);
 t_vector	vec_cross(t_vector v1, t_vector v2);
 t_vector	vec_normalize(t_vector v);

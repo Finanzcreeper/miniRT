@@ -4,10 +4,16 @@ void	solve_quadeq(t_quadeq *eq)
 {
 	eq->d = eq->b * eq->b - 4 * eq->a * eq->c;
 	if (eq->d < 0)
+	{
+		eq->tmin = INFINITY;
 		return ;
+	}
 	eq->t1 = (-eq->b + sqrt(eq->d)) / (2 * eq->a);
 	eq->t2 = (-eq->b - sqrt(eq->d)) / (2 * eq->a);
-	eq->tmin = fmin(eq->t1, eq->t2);
+	if (eq->t1 >= 0 && eq->t2 >= 0)
+		eq->tmin = fmin(eq->t1, eq->t2);
+	else if (eq->t1 >= 0 && eq->t2 < 0)
+		eq->tmin = eq->t1;
 }
 
 t_vector	point_diff(t_point p1, t_point p2)

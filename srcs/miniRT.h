@@ -79,6 +79,8 @@ bool		adjust_camera(t_action action, t_data *data, t_axis axis);
 bool		adjust_light(t_action action, t_data *data, t_axis axis);
 uint32_t	mlxcolor(t_color color, double fr, t_data data, bool light);
 
+void		cy_quadeq(t_quadeq *eq, t_ray *ray, t_cylinder *cy, t_vector oc);
+
 /* Testing. */
 int			test(t_data *data);
 void		ft_scrollhook(double xdelta, double ydelta, void *param);

@@ -61,25 +61,23 @@ bool	block_plane(t_ray *ray, t_plane *plane, t_data *data)
 	return (true);
 }
 
-bool	block_cylinder(t_ray *ray, t_cylinder *cylinder, t_data *data)
+bool	block_cylinder(t_ray *ray, t_cylinder *cy, t_data *data)
 {
-	const t_light	light = data->light;
-	const t_vector	oc = point_diff(ray->origin, cylinder->top);
-	const double	t_light = vec_len(point_diff(ray->origin, light.source));
+	const t_vector	oc = point_diff(ray->origin, cy->top);
+	const double	tl = vec_len(point_diff(ray->origin, data->light.source));
 	t_quadeq		eq;
+	t_vector		hit_vector;
 
-	eq.a = vec_dot(ray->direction, ray->direction)
-		- pow(vec_dot(ray->direction, cylinder->vector), 2);
-	eq.b = 2 * (vec_dot(ray->direction, oc) - vec_dot(ray->direction,
-				cylinder->vector) * vec_dot(oc, cylinder->vector));
-	eq.c = vec_dot(oc, oc) - pow(vec_dot(oc, cylinder->vector), 2)
-		- pow(cylinder->r, 2);
-	solve_quadeq(&eq);
+	cy_quadeq(&eq, ray, cy, oc);
 	if (eq.d < 0)
 		return (false);
 	if (eq.t1 - CORRECT_F < 0 && eq.t2 - CORRECT_F < 0)
 		return (false);
-	if (eq.t1 - CORRECT_F >= t_light && eq.t2 - CORRECT_F >= t_light)
+	if (eq.t1 - CORRECT_F >= tl && eq.t2 - CORRECT_F >= tl)
 		return (false);
-	return (true);
+	hit_vector = point_diff(get_hitpoint(*ray, eq.tmin - CORRECT_F), cy->top);
+	if (vec_dot(hit_vector, cy->vector) - CORRECT_F > 0
+		&& (vec_dot(hit_vector, cy->vector) - CORRECT_F <= cy->height))
+		return (true);
+	return (false);
 }

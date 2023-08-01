@@ -26,7 +26,7 @@ static void	hit_cylinder_disk(t_ray *ray, t_cylinder *cy, t_data *data, int idx)
 	}
 }
 
-static void	load_quadeq(t_quadeq *eq, t_ray *ray, t_cylinder *cy, t_vector oc)
+void	cy_quadeq(t_quadeq *eq, t_ray *ray, t_cylinder *cy, t_vector oc)
 {
 	eq->a = vec_dot(ray->direction, ray->direction)
 		- pow(vec_dot(ray->direction, cy->vector), 2);
@@ -42,8 +42,9 @@ void	hit_cylinder(t_ray *ray, t_cylinder *cy, t_data *data, int idx)
 	const t_vector	oc = point_diff(ray->origin, cy->top);
 	t_vector		hit_vector;
 	t_quadeq		eq;
+	const double	t_temp = ray->t_obj;
 
-	load_quadeq(&eq, ray, cy, oc);
+	cy_quadeq(&eq, ray, cy, oc);
 	if (eq.d >= 0 && eq.t1 >= 0 && eq.t2 < 0 && eq.t1 < ray->t_obj)
 		ray->t_obj = eq.t1;
 	else if (eq.d >= 0 && eq.t1 > eq.t2 && eq.t2 >= 0 && eq.t2 < ray->t_obj)
@@ -51,7 +52,7 @@ void	hit_cylinder(t_ray *ray, t_cylinder *cy, t_data *data, int idx)
 	else
 		return ;
 	hit_vector = point_diff(get_hitpoint(*ray, ray->t_obj), cy->top);
-	if (vec_dot(hit_vector, cy->vector) > 0
+	if (vec_dot(hit_vector, cy->vector) >= 0
 		&& (vec_dot(hit_vector, cy->vector) <= cy->height))
 	{
 		ray->color = cy->color;
@@ -59,6 +60,6 @@ void	hit_cylinder(t_ray *ray, t_cylinder *cy, t_data *data, int idx)
 		ray->light = in_light(data, get_hitpoint(*ray, ray->t_obj), idx);
 	}
 	else
-		ray->t_obj = INFINITY;
+		ray->t_obj = t_temp;
 	hit_cylinder_disk(ray, cy, data, idx);
 }

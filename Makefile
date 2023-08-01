@@ -1,7 +1,7 @@
 NAME = miniRT
 
 _DIR = parser utils calc
-_SRC = main.c init.c test.c mlx_hooks.c render.c color.c transformation.c \
+_SRC = main.c init.c mlx_hooks.c render.c color.c transformation.c \
        parser/basic.c parser/object.c parser/params.c parser/utils.c \
 	   parser/parser.c \
 	   calc/vector.c calc/vec_rotate.c calc/basic.c calc/intersection.c \

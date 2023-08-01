@@ -138,6 +138,15 @@ typedef enum e_action
 	DECREMENT
 }	t_action;
 
+typedef struct s_text
+{
+	mlx_image_t	*wasd;
+	mlx_image_t	*scroll;
+	mlx_image_t	*swap_obj;
+	mlx_image_t	*swap_rot_trans;
+	mlx_image_t	*w;
+}t_text;
+
 typedef struct s_data
 {
 	char		*file_content;
@@ -148,6 +157,7 @@ typedef struct s_data
 	int			n_obj;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	t_text		prt;
 	char		**lines;
 	char		**infos;
 	int			idx;

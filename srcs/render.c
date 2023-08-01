@@ -23,9 +23,25 @@ void	render(mlx_image_t *img, t_data *data)
 				mlx_put_pixel(img, w, h, bg_color());
 			else
 				mlx_put_pixel(img, w, h, mlxcolor(ray.color, ray.fr, *data,
-					ray.light));
+						ray.light));
 		}
 	}
+	update_controlled(data);
+}
+
+void	update_controlled(t_data *data)
+{
+	mlx_delete_image(data->mlx, data->prt.w);
+	if (data->idx == CAM_IDX)
+		data->prt.w = mlx_put_string(data->mlx, "Controlling: Camera", 0, 80);
+	if (data->idx == LIGHT_IDX)
+		data->prt.w = mlx_put_string(data->mlx, "Controlling: Light", 0, 80);
+	if (data->objs[data->idx].type == SPHERE)
+		data->prt.w = mlx_put_string(data->mlx, "Controlling: Sphere", 0, 80);
+	if (data->objs[data->idx].type == CYLINDER)
+		data->prt.w = mlx_put_string(data->mlx, "Controlling: Cylinder", 0, 80);
+	if (data->objs[data->idx].type == PLANE)
+		data->prt.w = mlx_put_string(data->mlx, "Controlling: Plane", 0, 80);
 }
 
 void	increment_rerender(t_data *data)
@@ -42,7 +58,7 @@ void	increment_rerender(t_data *data)
 		rotation(&data->objs[data->idx].cy.vector, INCREMENT, data->axis);
 	if (data->action == ROTATION && data->objs[data->idx].type == PLANE)
 		rotation(&data->objs[data->idx].pl.vector, INCREMENT, data->axis);
-	render(data->img, data);
+	// render(data->img, data);
 }
 
 void	decrement_rerender(t_data *data)
@@ -58,5 +74,5 @@ void	decrement_rerender(t_data *data)
 		rotation(&data->objs[data->idx].cy.vector, DECREMENT, data->axis);
 	if (data->action == ROTATION && data->objs[data->idx].type == PLANE)
 		rotation(&data->objs[data->idx].pl.vector, DECREMENT, data->axis);
-	render(data->img, data);
+	// render(data->img, data);
 }

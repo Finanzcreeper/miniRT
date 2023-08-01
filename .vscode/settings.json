@@ -5,6 +5,7 @@
 		"string.h": "c",
 		"minirt_defines.h": "c",
 		"minirt.h": "c",
-		"vector": "c"
+		"vector": "c",
+		"optional": "c"
 	}
 }

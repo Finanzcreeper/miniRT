@@ -79,5 +79,8 @@ uint32_t	mlxcolor(t_color color, double fr, t_data data, bool light);
 
 /* Testing. */
 int			test(t_data *data);
+void		ft_scrollhook(double xdelta, double ydelta, void *param);
+void		init_context(t_data *data);
+void		update_controlled(t_data *data);
 
 #endif

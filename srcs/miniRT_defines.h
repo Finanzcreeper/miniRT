@@ -18,7 +18,7 @@
 # define WINDOW_H	640
 # define CAM_IDX	-2
 # define LIGHT_IDX	-1
-# define TRAN_STEP	1
+# define TRAN_STEP	0.5
 # define ROT_STEP	10
 
 # define SCENE_EXT	".rt"

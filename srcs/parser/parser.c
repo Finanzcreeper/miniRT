@@ -37,7 +37,8 @@ void	parse_content(t_data *data, char *content)
 	idx = 0;
 	while (data->lines[++i])
 		parse_line(data->lines[i], data, &idx);
-	if (!data->ambient.assigned || !data->light.assigned || !data->camera.assigned)
+	if (!data->ambient.assigned || !data->light.assigned
+		|| !data->camera.assigned)
 		ft_error(ERR_MISS, true, data);
 	ft_strarrfree(data->lines);
 	data->lines = NULL;

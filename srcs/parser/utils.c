@@ -1,6 +1,6 @@
 #include "miniRT.h"
 
-static bool is_dbl(char *nbr)
+static bool	is_dbl(char *nbr)
 {
 	int	digit;
 
@@ -45,8 +45,8 @@ double	ft_strtod(char *nbr, bool *success)
 		factor *= 0.1;
 	}
 	if (integer >= 0)
-		return (*success = true, (double) (integer + fraction));
-	return (*success = true, (double) (integer - fraction));
+		return (*success = true, (double)(integer + fraction));
+	return (*success = true, (double)(integer - fraction));
 }
 
 /* Count the number of objects of a given file content. */

@@ -17,31 +17,29 @@ void	init_data(t_data *data)
 
 t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)
 {
-	t_ray 			ray;
 	const t_vector	up = {0, 1, 0};
+	t_raymap		map;
+	t_ray			ray;
 
 	ray.origin = data->camera.view;
-	t_vector	right = vec_cross(up, data->camera.orientation);
-	t_vector	true_up = vec_cross(data->camera.orientation, right);
-
-	float	ndc_x = (width + 0.5f) / img->width * 2.0f - 1.0f; // remapping from [0, 1] to [-1, 1]
-	float	ndc_y = 1.0f - (height+ 0.5f) / img->height * 2.0f; // for y, up is positive
-	//float	ndc_y = (height+ 0.5f) / img->height * 2.0f - 1.0f;
-
-	float z = -1.0f; // focal length by convention
-	float r = tan((data->camera.fov * (M_PI / 180)) / 2.0f); // field of view
-	float screen_x = ndc_x * r * (img->width / img->height);
-	float screen_y = ndc_y * r;
-
-	ray.direction.x = screen_x * right.x + screen_y * true_up.x - z * data->camera.orientation.x;
-	ray.direction.y = screen_x * right.y + screen_y * true_up.y - z * data->camera.orientation.y;
-	ray.direction.z = screen_x * right.z + screen_y * true_up.z - z * data->camera.orientation.z;
-
+	map.right = vec_cross(up, data->camera.orientation);
+	map.true_up = vec_cross(data->camera.orientation, map.right);
+	map.ndc_x = (width + 0.5f) / img->width * 2.0f - 1.0f;
+	map.ndc_y = 1.0f - (height + 0.5f) / img->height * 2.0f;
+	map.z = FOCAL_LEN;
+	map.r = tan((data->camera.fov * (M_PI / 180)) / 2.0f);
+	map.screen_x = map.ndc_x * map.r * (img->width / img->height);
+	map.screen_y = map.ndc_y * map.r;
+	ray.direction.x = map.screen_x * map.right.x + map.screen_y * map.true_up.x
+		- map.z * data->camera.orientation.x;
+	ray.direction.y = map.screen_x * map.right.y + map.screen_y * map.true_up.y
+		- map.z * data->camera.orientation.y;
+	ray.direction.z = map.screen_x * map.right.z + map.screen_y * map.true_up.z
+		- map.z * data->camera.orientation.z;
 	ray.direction = vec_normalize(ray.direction);
 	ray.light = true;
 	ray.in_obj = false;
 	ray.t_obj = INFINITY;
-	ray.t_light = INFINITY;
 	return (ray);
 }
 
@@ -56,9 +54,9 @@ t_ray	init_shadow_ray(t_point origin, t_vector direction)
 
 void	init_context(t_data *data)
 {
-	data->prt.wasd = mlx_put_string(data->mlx, "W,A,S,D -> move in x & y", 0, 0);
-	data->prt.scroll = mlx_put_string(data->mlx, "scroll -> move in z", 0, 0);
-	data->prt.swap_obj = mlx_put_string(data->mlx, "Q,E -> swap elems", 0, 0);
-	data->prt.swap_rot_trans = mlx_put_string(data->mlx, "R,T -> swap Rot & Trans", 0, 0);
-	data->prt.w = mlx_put_string(data->mlx, "Controlling: Camera", 0, 0);
+	data->prt.wasd = mlx_put_string(data->mlx, STR_WASD, 0, 0);
+	data->prt.scroll = mlx_put_string(data->mlx, STR_SCROLL, 0, 0);
+	data->prt.swap_obj = mlx_put_string(data->mlx, STR_SWAP, 0, 0);
+	data->prt.swap_rot_trans = mlx_put_string(data->mlx, STR_ACT, 0, 0);
+	data->prt.w = mlx_put_string(data->mlx, STR_CAM, 0, 0);
 }

@@ -28,19 +28,19 @@ void	render(mlx_image_t *img, t_data *data)
 	}
 }
 
-void	update_controlled(t_data *data)
+void	update_controlled(t_data *data, int idx)
 {
 	mlx_delete_image(data->mlx, data->prt.w);
-	if (data->idx == CAM_IDX)
-		data->prt.w = mlx_put_string(data->mlx, "Controlling: Camera", 0, 80);
-	if (data->idx == LIGHT_IDX)
-		data->prt.w = mlx_put_string(data->mlx, "Controlling: Light", 0, 80);
-	if (data->objs[data->idx].type == SPHERE)
-		data->prt.w = mlx_put_string(data->mlx, "Controlling: Sphere", 0, 80);
-	if (data->objs[data->idx].type == CYLINDER)
-		data->prt.w = mlx_put_string(data->mlx, "Controlling: Cylinder", 0, 80);
-	if (data->objs[data->idx].type == PLANE)
-		data->prt.w = mlx_put_string(data->mlx, "Controlling: Plane", 0, 80);
+	if (idx == CAM_IDX)
+		data->prt.w = mlx_put_string(data->mlx, STR_CAM, 0, 80);
+	if (idx == LIGHT_IDX)
+		data->prt.w = mlx_put_string(data->mlx, STR_LIGHT, 0, 80);
+	if (data->objs[idx].type == SPHERE)
+		data->prt.w = mlx_put_string(data->mlx, STR_SP, 0, 80);
+	if (data->objs[idx].type == CYLINDER)
+		data->prt.w = mlx_put_string(data->mlx, STR_CY, 0, 80);
+	if (data->objs[idx].type == PLANE)
+		data->prt.w = mlx_put_string(data->mlx, STR_PL, 0, 80);
 }
 
 void	increment_rerender(t_data *data, t_axis axis)
@@ -61,7 +61,8 @@ void	increment_rerender(t_data *data, t_axis axis)
 }
 
 void	decrement_rerender(t_data *data, t_axis axis)
-{	if (data->idx == CAM_IDX && adjust_camera(DECREMENT, data, axis))
+{
+	if (data->idx == CAM_IDX && adjust_camera(DECREMENT, data, axis))
 		return ;
 	if (data->idx == LIGHT_IDX && adjust_light(DECREMENT, data, axis))
 		return ;

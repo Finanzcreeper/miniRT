@@ -15,7 +15,7 @@ bool	parse_sphere(char **infos, int *idx, t_data *data)
 		ft_error(ERR_SP, true, data);
 	success = true;
 	obj->diameter = ft_strtod(infos[2], &success);
-	obj->radius = obj->diameter / 2;
+	obj->r = obj->diameter / 2;
 	if (!success)
 		ft_error(ERR_SP, true, data);
 	if (!parse_color(infos[3], &obj->color))
@@ -44,7 +44,7 @@ bool	parse_plane(char **infos, int *idx, t_data *data)
 
 void	calc_cylinder(t_cylinder *obj)
 {
-	obj->radius = obj->diameter / 2;
+	obj->r = obj->diameter / 2;
 	obj->top.x = obj->center.x + obj->vector.x * obj->height / 2;
 	obj->top.y = obj->center.y + obj->vector.y * obj->height / 2;
 	obj->top.z = obj->center.z + obj->vector.z * obj->height / 2;

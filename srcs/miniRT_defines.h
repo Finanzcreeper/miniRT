@@ -21,6 +21,7 @@
 # define TRAN_STEP	0.5
 # define ROT_STEP	10
 # define CORRECT_F	0.001
+# define FOCAL_LEN	-1.0
 
 # define SCENE_EXT	".rt"
 
@@ -40,5 +41,15 @@
 # define ERR_PL		"Scene file has incorret plane!"
 # define ERR_CY		"Scene file has incorret cylinder!"
 # define ERR_MISS	"Scene file doesn't have one of the required fields!"
+
+# define STR_WASD	"W,A,S,D -> move in x & y"
+# define STR_SCROLL	"Scroll -> move in z"
+# define STR_SWAP	"Q,E -> swap elements"
+# define STR_ACT	"R,T -> swap Rotation & Translation"
+# define STR_CAM	"Controlling: Camera"
+# define STR_LIGHT	"Controlling: Light"
+# define STR_SP		"Controlling: Sphere"
+# define STR_CY		"Controlling: Cylinder"
+# define STR_PL		"Controlling: Plane"
 
 #endif

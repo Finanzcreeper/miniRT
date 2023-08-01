@@ -8,9 +8,6 @@ uint32_t	mlxcolor(t_color color, double fr, t_data data, bool light)
 
 	if (!light)
 	{
-		// r = color.r * SHADOW_F * (data.light.ratio);
-		// g = color.g * SHADOW_F * (data.light.ratio);
-		// b = color.b * SHADOW_F * (data.light.ratio);
 		r = 0;
 		g = 0;
 		b = 0;

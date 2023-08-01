@@ -53,7 +53,7 @@ typedef struct s_sphere
 {
 	t_point	center;
 	double	diameter;
-	double	radius;
+	double	r;
 	t_color	color;
 }	t_sphere;
 
@@ -71,7 +71,7 @@ typedef struct s_cylinder
 	t_point		bottom;
 	t_vector	vector;
 	double		diameter;
-	double		radius;
+	double		r;
 	double		height;
 	t_color		color;
 }	t_cylinder;
@@ -108,9 +108,20 @@ typedef struct s_ray
 	bool		light;
 	bool		in_obj;
 	double		t_obj;
-	double		t_light;
 	double		fr;
 }	t_ray;
+
+typedef struct s_raymap
+{
+	t_vector	right;
+	t_vector	true_up;
+	float		ndc_x;
+	float		ndc_y;
+	float		z;
+	float		r;
+	float		screen_x;
+	float		screen_y;
+}	t_raymap;
 
 typedef struct s_quadeq
 {
@@ -120,7 +131,7 @@ typedef struct s_quadeq
 	double	t1;
 	double	t2;
 	double	tmin;
-	double	discriminant;
+	double	d;
 }	t_quadeq;
 
 typedef enum e_axis

@@ -41,7 +41,7 @@ bool	parse_camera(char **infos, t_data *data)
 	return (true);
 }
 
-bool		parse_light(char **infos, t_data *data)
+bool	parse_light(char **infos, t_data *data)
 {
 	bool	success;
 

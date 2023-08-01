@@ -26,6 +26,7 @@ bool	parse_color(char *s, t_color *color)
 	color->a = (double) DEFAULT_A;
 	return (ft_strarrfree(parts), true);
 }
+
 /* Parse a point in the format of x,y,z, returns whether it's successful. */
 bool	parse_point(char *s, t_point *point)
 {
@@ -58,7 +59,7 @@ bool	parse_vector(char *s, t_vector *vector)
 	vector->y = ft_strtod(parts[1], &success);
 	vector->z = ft_strtod(parts[2], &success);
 	if (!success || vector->x < -1 || vector->x > 1 || vector->y < -1
-			|| vector->y > 1 || vector->z < -1 || vector->z > 1)
+		|| vector->y > 1 || vector->z < -1 || vector->z > 1)
 		return (ft_strarrfree(parts), false);
 	return (ft_strarrfree(parts), true);
 }

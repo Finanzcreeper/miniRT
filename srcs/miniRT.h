@@ -56,13 +56,14 @@ void		hit_plane(t_ray *ray, t_plane *plane, t_data *data, int idx);
 
 bool		in_light(t_data *data, t_point hitpoint, int idx);
 
-bool		block_sphere(t_ray *ray, t_sphere *sphere, t_light light);
-bool		block_plane(t_ray *ray, t_plane *plane, t_light light);
-bool		block_cylinder(t_ray *ray, t_cylinder *cylinder, t_light light);
+bool		block_sphere(t_ray *ray, t_sphere *sphere, t_data *data);
+bool		block_plane(t_ray *ray, t_plane *plane, t_data *data);
+bool		block_cylinder(t_ray *ray, t_cylinder *cylinder, t_data *data);
+void		hit_cylinder(t_ray *ray, t_cylinder *cy, t_data *data, int idx);
 void		intersection(t_ray *ray, t_data *data);
 
-double		sphere_facing_ratio(t_point hitpoint, t_sphere sphere, t_light light);
-double		plane_facing_ratio(t_point hitpoint, t_plane plane, t_light light);
+double		sp_facing_ratio(t_point hitpoint, t_sphere sphere, t_light light);
+double		pl_facing_ratio(t_point hitpoint, t_plane plane, t_light light);
 double		cy_fr_side(t_point hitpoint, t_cylinder cy, t_light light);
 double		cy_fr_top(t_point hitpoint, t_cylinder cy, t_light light);
 double		cy_fr_bottom(t_point hitpoint, t_cylinder cy, t_light light);
@@ -82,6 +83,6 @@ uint32_t	mlxcolor(t_color color, double fr, t_data data, bool light);
 int			test(t_data *data);
 void		ft_scrollhook(double xdelta, double ydelta, void *param);
 void		init_context(t_data *data);
-void		update_controlled(t_data *data);
+void		update_controlled(t_data *data, int idx);
 
 #endif

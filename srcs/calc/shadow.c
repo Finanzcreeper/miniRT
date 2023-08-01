@@ -11,44 +11,47 @@ bool	in_light(t_data *data, t_point hitpoint, int idx)
 	i = -1;
 	while (++i < data->n_obj)
 	{
-		if (i != idx && ((data->objs[i].type == SPHERE
-			&& block_sphere(&shadow_ray, &data->objs[i].sp, data->light))
-			|| (data->objs[i].type == PLANE
-			&& block_plane(&shadow_ray, &data->objs[i].pl, data->light))
-			|| (data->objs[i].type == CYLINDER
-			&& block_cylinder(&shadow_ray, &data->objs[i].cy, data->light))))
+		if (((data->objs[i].type == SPHERE
+					&& block_sphere(&shadow_ray, &data->objs[i].sp, data))
+				|| (data->objs[i].type == PLANE
+					&& block_plane(&shadow_ray, &data->objs[i].pl, data))
+				|| (data->objs[i].type == CYLINDER
+					&& block_cylinder(&shadow_ray, &data->objs[i].cy, data))))
 			return (false);
 	}
+	(void)idx;
 	return (true);
 }
 
-bool	block_sphere(t_ray *ray, t_sphere *sphere, t_light light)
+bool	block_sphere(t_ray *ray, t_sphere *sphere, t_data *data)
 {
+	const t_light	light = data->light;
 	const t_vector	oc = point_diff(ray->origin, sphere->center);
 	const double	t_light = vec_len(point_diff(ray->origin, light.source));
 	t_quadeq		eq;
 
 	eq.a = vec_dot(ray->direction, ray->direction);
 	eq.b = 2.0 * vec_dot(oc, ray->direction);
-	eq.c = vec_dot(oc, oc) - sphere->radius * sphere->radius;
+	eq.c = vec_dot(oc, oc) - sphere->r * sphere->r;
 	solve_quadeq(&eq);
-	if (eq.discriminant < 0)
+	if (eq.d < 0)
 		return (false);
-	if (eq.t1 < 0 && eq.t2 - CORRECT_F < 0)
+	if (eq.t1 - CORRECT_F < 0 && eq.t2 - CORRECT_F < 0)
 		return (false);
 	if (eq.t1 - CORRECT_F >= t_light && eq.t2 - CORRECT_F >= t_light)
 		return (false);
 	return (true);
 }
 
-bool	block_plane(t_ray *ray, t_plane *plane, t_light light)
+bool	block_plane(t_ray *ray, t_plane *plane, t_data *data)
 {
+	const t_light	light = data->light;
 	const double	denom = vec_dot(ray->direction, plane->vector);
 	const double	t_light = vec_len(point_diff(ray->origin, light.source));
 	const t_vector	op = point_diff(ray->origin, plane->point);
 	double			t;
 
-	if (denom < 1e-6)
+	if (fabs(denom) < 1e-6)
 		return (false);
 	t = -vec_dot(plane->vector, op) / denom;
 	if (t - CORRECT_F < 0)
@@ -58,23 +61,23 @@ bool	block_plane(t_ray *ray, t_plane *plane, t_light light)
 	return (true);
 }
 
-
-bool	block_cylinder(t_ray *ray, t_cylinder *cylinder, t_light light)
+bool	block_cylinder(t_ray *ray, t_cylinder *cylinder, t_data *data)
 {
+	const t_light	light = data->light;
 	const t_vector	oc = point_diff(ray->origin, cylinder->top);
 	const double	t_light = vec_len(point_diff(ray->origin, light.source));
 	t_quadeq		eq;
 
-	eq.a = vec_dot(ray->direction, ray->direction) -
-		pow(vec_dot(ray->direction, cylinder->vector), 2);
+	eq.a = vec_dot(ray->direction, ray->direction)
+		- pow(vec_dot(ray->direction, cylinder->vector), 2);
 	eq.b = 2 * (vec_dot(ray->direction, oc) - vec_dot(ray->direction,
-		cylinder->vector) * vec_dot(oc, cylinder->vector));
-	eq.c = vec_dot(oc, oc) - pow(vec_dot(oc, cylinder->vector), 2) -
-		pow(cylinder->radius, 2);
+				cylinder->vector) * vec_dot(oc, cylinder->vector));
+	eq.c = vec_dot(oc, oc) - pow(vec_dot(oc, cylinder->vector), 2)
+		- pow(cylinder->r, 2);
 	solve_quadeq(&eq);
-	if (eq.discriminant < 0)
+	if (eq.d < 0)
 		return (false);
-	if (eq.t1 - CORRECT_F  < 0 && eq.t2 - CORRECT_F < 0)
+	if (eq.t1 - CORRECT_F < 0 && eq.t2 - CORRECT_F < 0)
 		return (false);
 	if (eq.t1 - CORRECT_F >= t_light && eq.t2 - CORRECT_F >= t_light)
 		return (false);

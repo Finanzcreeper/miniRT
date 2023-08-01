@@ -26,20 +26,20 @@ void	rotation(t_vector *vec, t_action action, t_axis axis)
 		*vec = rotate_z(*vec, action);
 }
 
-bool	adjust_camera(t_action action, t_data *data)
+bool	adjust_camera(t_action action, t_data *data, t_axis axis)
 {
 	if (data->action == TRANSLATION)
-		translation(&data->camera.view, action, data->axis);
+		translation(&data->camera.view, action, axis);
 	if (data->action == ROTATION)
-		rotation(&data->camera.orientation, action, data->axis);
+		rotation(&data->camera.orientation, action, axis);
 	render(data->img, data);
 	return (true);
 }
 
-bool	adjust_light(t_action action, t_data *data)
+bool	adjust_light(t_action action, t_data *data, t_axis axis)
 {
 	if (data->action == TRANSLATION)
-		translation(&data->light.source, action, data->axis);
+		translation(&data->light.source, action, axis);
 	render(data->img, data);
 	return (true);
 }

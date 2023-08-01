@@ -1,14 +1,8 @@
 #include "miniRT.h"
 
-/* Scale a vector. */
-t_vector	vec_scale(t_vector v1, double scale)
+double	vec_len(t_vector v)
 {
-	t_vector	result;
-
-	result.x = v1.x * scale;
-	result.y = v1.y * scale;
-	result.z = v1.z * scale;
-	return (result);
+	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
 
 /* Calculate the dot product of two vectors. */

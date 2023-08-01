@@ -26,7 +26,6 @@ void	render(mlx_image_t *img, t_data *data)
 						ray.light));
 		}
 	}
-	update_controlled(data);
 }
 
 void	update_controlled(t_data *data)
@@ -44,35 +43,35 @@ void	update_controlled(t_data *data)
 		data->prt.w = mlx_put_string(data->mlx, "Controlling: Plane", 0, 80);
 }
 
-void	increment_rerender(t_data *data)
+void	increment_rerender(t_data *data, t_axis axis)
 {
-	if (data->idx == CAM_IDX && adjust_camera(INCREMENT, data))
+	if (data->idx == CAM_IDX && adjust_camera(INCREMENT, data, axis))
 		return ;
-	if (data->idx == LIGHT_IDX && adjust_light(INCREMENT, data))
+	if (data->idx == LIGHT_IDX && adjust_light(INCREMENT, data, axis))
 		return ;
 	if (data->idx >= data->n_obj)
 		return ;
 	if (data->action == TRANSLATION)
-		translation(data->objs[data->idx].pt, INCREMENT, data->axis);
+		translation(data->objs[data->idx].pt, INCREMENT, axis);
 	if (data->action == ROTATION && data->objs[data->idx].type == CYLINDER)
-		rotation(&data->objs[data->idx].cy.vector, INCREMENT, data->axis);
+		rotation(&data->objs[data->idx].cy.vector, INCREMENT, axis);
 	if (data->action == ROTATION && data->objs[data->idx].type == PLANE)
-		rotation(&data->objs[data->idx].pl.vector, INCREMENT, data->axis);
-	// render(data->img, data);
+		rotation(&data->objs[data->idx].pl.vector, INCREMENT, axis);
+	render(data->img, data);
 }
 
-void	decrement_rerender(t_data *data)
-{	if (data->idx == CAM_IDX && adjust_camera(DECREMENT, data))
+void	decrement_rerender(t_data *data, t_axis axis)
+{	if (data->idx == CAM_IDX && adjust_camera(DECREMENT, data, axis))
 		return ;
-	if (data->idx == LIGHT_IDX && adjust_light(DECREMENT, data))
+	if (data->idx == LIGHT_IDX && adjust_light(DECREMENT, data, axis))
 		return ;
 	if (data->idx >= data->n_obj)
 		return ;
 	if (data->action == TRANSLATION)
-		translation(data->objs[data->idx].pt, DECREMENT, data->axis);
+		translation(data->objs[data->idx].pt, DECREMENT, axis);
 	if (data->action == ROTATION && data->objs[data->idx].type == CYLINDER)
-		rotation(&data->objs[data->idx].cy.vector, DECREMENT, data->axis);
+		rotation(&data->objs[data->idx].cy.vector, DECREMENT, axis);
 	if (data->action == ROTATION && data->objs[data->idx].type == PLANE)
-		rotation(&data->objs[data->idx].pl.vector, DECREMENT, data->axis);
-	// render(data->img, data);
+		rotation(&data->objs[data->idx].pl.vector, DECREMENT, axis);
+	render(data->img, data);
 }

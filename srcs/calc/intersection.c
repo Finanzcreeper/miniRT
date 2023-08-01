@@ -17,9 +17,9 @@ void	hit_sphere(t_ray *ray, t_sphere *sphere, t_data *data, int idx)
 	eq.b = 2.0 * vec_dot(oc, ray->direction);
 	eq.c = vec_dot(oc, oc) - sphere->radius * sphere->radius;
 	solve_quadeq(&eq);
-	if (eq.discriminant >= 0 && eq.t1 <= eq.t2 && eq.t1 >= 0 && eq.t1 < ray->t_obj)
+	if (eq.discriminant >= 0 && eq.t1 >= 0 && eq.t2 < 0 && eq.t1 < ray->t_obj)
 		ray->t_obj = eq.t1;
-	else if (eq.discriminant >= 0 && eq.t1 > eq.t2 && eq.t2 >= 0 && eq.t2 < ray->t_obj)
+	else if (eq.discriminant >= 0 && eq.t2 >= 0 && eq.t2 < ray->t_obj)
 		ray->t_obj = eq.t2;
 	else
 		return ;

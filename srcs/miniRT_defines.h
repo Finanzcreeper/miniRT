@@ -20,6 +20,7 @@
 # define LIGHT_IDX	-1
 # define TRAN_STEP	0.5
 # define ROT_STEP	10
+# define CORRECT_F	0.001
 
 # define SCENE_EXT	".rt"
 

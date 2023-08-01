@@ -145,7 +145,7 @@ typedef struct s_text
 	mlx_image_t	*swap_obj;
 	mlx_image_t	*swap_rot_trans;
 	mlx_image_t	*w;
-}t_text;
+}	t_text;
 
 typedef struct s_data
 {
@@ -161,7 +161,6 @@ typedef struct s_data
 	char		**lines;
 	char		**infos;
 	int			idx;
-	int			axis;
 	int			action;
 }	t_data;
 

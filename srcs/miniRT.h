@@ -41,6 +41,7 @@ void		parse_content(t_data *data, char *content);
 
 /* Calculations. */
 t_vector	point_diff(t_point p1, t_point p2);
+double		vec_len(t_vector v);
 double		vec_dot(t_vector v1, t_vector v2);
 t_vector	vec_cross(t_vector v1, t_vector v2);
 t_vector	vec_normalize(t_vector v);
@@ -55,9 +56,9 @@ void		hit_plane(t_ray *ray, t_plane *plane, t_data *data, int idx);
 
 bool		in_light(t_data *data, t_point hitpoint, int idx);
 
-bool		block_sphere(t_ray *ray, t_sphere *sphere);
-bool		block_plane(t_ray *ray, t_plane *plane);
-bool		block_cylinder(t_ray *ray, t_cylinder *cylinder);
+bool		block_sphere(t_ray *ray, t_sphere *sphere, t_light light);
+bool		block_plane(t_ray *ray, t_plane *plane, t_light light);
+bool		block_cylinder(t_ray *ray, t_cylinder *cylinder, t_light light);
 void		intersection(t_ray *ray, t_data *data);
 
 double		sphere_facing_ratio(t_point hitpoint, t_sphere sphere, t_light light);
@@ -70,11 +71,11 @@ void		ft_keyhook(mlx_key_data_t keydata, void *param);
 
 void		translation(t_point *pt, t_action action, t_axis axis);
 void		rotation(t_vector *vec, t_action action, t_axis axis);
-void		increment_rerender(t_data *data);
-void		decrement_rerender(t_data *data);
+void		increment_rerender(t_data *data, t_axis axis);
+void		decrement_rerender(t_data *data, t_axis axis);
 void		render(mlx_image_t *img, t_data *data);
-bool		adjust_camera(t_action action, t_data *data);
-bool		adjust_light(t_action action, t_data *data);
+bool		adjust_camera(t_action action, t_data *data, t_axis axis);
+bool		adjust_light(t_action action, t_data *data, t_axis axis);
 uint32_t	mlxcolor(t_color color, double fr, t_data data, bool light);
 
 /* Testing. */

@@ -12,7 +12,6 @@ void	init_data(t_data *data)
 	data->light.assigned = false;
 	data->n_obj = 0;
 	data->idx = CAM_IDX;
-	data->axis = AXIS_X;
 	data->action = TRANSLATION;
 }
 
@@ -42,7 +41,7 @@ t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)
 	ray.light = true;
 	ray.in_obj = false;
 	ray.t_obj = INFINITY;
-	ray.t_light = INFINITY; 
+	ray.t_light = INFINITY;
 	return (ray);
 }
 
@@ -61,4 +60,5 @@ void	init_context(t_data *data)
 	data->prt.scroll = mlx_put_string(data->mlx, "scroll -> move in z", 0, 0);
 	data->prt.swap_obj = mlx_put_string(data->mlx, "Q,E -> swap elems", 0, 0);
 	data->prt.swap_rot_trans = mlx_put_string(data->mlx, "R,T -> swap Rot & Trans", 0, 0);
+	data->prt.w = mlx_put_string(data->mlx, "Controlling: Camera", 0, 0);
 }

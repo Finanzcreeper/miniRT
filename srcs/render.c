@@ -45,34 +45,40 @@ void	update_controlled(t_data *data, int idx)
 
 void	increment_rerender(t_data *data, t_axis axis)
 {
+	t_object	*obj;
+
 	if (data->idx == CAM_IDX && adjust_camera(INCREMENT, data, axis))
 		return ;
 	if (data->idx == LIGHT_IDX && adjust_light(INCREMENT, data, axis))
 		return ;
 	if (data->idx >= data->n_obj)
 		return ;
+	obj = &data->objs[data->idx];
 	if (data->action == TRANSLATION)
-		translation(data->objs[data->idx].pt, INCREMENT, axis, &data->objs[data->idx]);
+		translation(data->objs[data->idx].pt, INCREMENT, axis, obj);
 	if (data->action == ROTATION && data->objs[data->idx].type == CYLINDER)
-		rotation(&data->objs[data->idx].cy.o_vector, INCREMENT, axis, &data->objs[data->idx]);
+		rotation(&obj->cy.o_vector, INCREMENT, axis, obj);
 	if (data->action == ROTATION && data->objs[data->idx].type == PLANE)
-		rotation(&data->objs[data->idx].pl.vector, INCREMENT, axis, &data->objs[data->idx]);
+		rotation(&obj->pl.vector, INCREMENT, axis, obj);
 	render(data->img, data);
 }
 
 void	decrement_rerender(t_data *data, t_axis axis)
 {
+	t_object	*obj;
+
 	if (data->idx == CAM_IDX && adjust_camera(DECREMENT, data, axis))
 		return ;
 	if (data->idx == LIGHT_IDX && adjust_light(DECREMENT, data, axis))
 		return ;
 	if (data->idx >= data->n_obj)
 		return ;
+	obj = &data->objs[data->idx];
 	if (data->action == TRANSLATION)
-		translation(data->objs[data->idx].pt, DECREMENT, axis, &data->objs[data->idx]);
+		translation(data->objs[data->idx].pt, DECREMENT, axis, obj);
 	if (data->action == ROTATION && data->objs[data->idx].type == CYLINDER)
-		rotation(&data->objs[data->idx].cy.o_vector, DECREMENT, axis, &data->objs[data->idx]);
+		rotation(&obj->cy.o_vector, DECREMENT, axis, obj);
 	if (data->action == ROTATION && data->objs[data->idx].type == PLANE)
-		rotation(&data->objs[data->idx].pl.vector, DECREMENT, axis, &data->objs[data->idx]);
+		rotation(&obj->pl.vector, DECREMENT, axis, obj);
 	render(data->img, data);
 }

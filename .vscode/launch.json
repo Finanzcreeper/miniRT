@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "${workspaceFolder}/miniRT",
-			"args": ["${workspaceFolder}/scenes/sphere2.rt"],
+			"args": ["${workspaceFolder}/scenes/test.rt"],
 			"stopAtEntry": true,
 			"cwd": "${fileDirname}",
 			"environment": [],

@@ -2,12 +2,10 @@
 
 void	solve_quadeq(t_quadeq *eq)
 {
+	eq->tmin = INFINITY;
 	eq->d = eq->b * eq->b - 4 * eq->a * eq->c;
 	if (eq->d < 0)
-	{
-		eq->tmin = INFINITY;
 		return ;
-	}
 	eq->t1 = (-eq->b + sqrt(eq->d)) / (2 * eq->a);
 	eq->t2 = (-eq->b - sqrt(eq->d)) / (2 * eq->a);
 	if (eq->t1 >= 0 && eq->t2 >= 0)

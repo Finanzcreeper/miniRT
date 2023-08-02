@@ -60,6 +60,7 @@ bool		block_sphere(t_ray *ray, t_sphere *sphere, t_data *data);
 bool		block_plane(t_ray *ray, t_plane *plane, t_data *data);
 bool		block_cylinder(t_ray *ray, t_cylinder *cylinder, t_data *data);
 void		hit_cylinder(t_ray *ray, t_cylinder *cy, t_data *data, int idx);
+void		hit_cy_disk(t_ray *ray, t_cylinder *cy, t_data *data, int idx);
 void		intersection(t_ray *ray, t_data *data);
 void		update_cy(t_cylinder *obj);
 double		sp_facing_ratio(t_point hitpoint, t_sphere sphere, t_light light);

@@ -1,28 +1,5 @@
 #include "miniRT.h"
 
-bool	in_light(t_data *data, t_point hitpoint, int idx)
-{
-	t_vector	shadow_ray_dir;
-	t_ray		shadow_ray;
-	int			i;
-
-	shadow_ray_dir = vec_normalize(point_diff(data->light.source, hitpoint));
-	shadow_ray = init_shadow_ray(hitpoint, shadow_ray_dir);
-	i = -1;
-	while (++i < data->n_obj)
-	{
-		if (((data->objs[i].type == SPHERE
-					&& block_sphere(&shadow_ray, &data->objs[i].sp, data))
-				|| (data->objs[i].type == PLANE
-					&& block_plane(&shadow_ray, &data->objs[i].pl, data))
-				|| (data->objs[i].type == CYLINDER
-					&& block_cylinder(&shadow_ray, &data->objs[i].cy, data))))
-			return (false);
-	}
-	(void)idx;
-	return (true);
-}
-
 bool	block_sphere(t_ray *ray, t_sphere *sphere, t_data *data)
 {
 	const t_light	light = data->light;
@@ -61,8 +38,9 @@ bool	block_plane(t_ray *ray, t_plane *plane, t_data *data)
 	return (true);
 }
 
-static bool	block_cy_disk(t_ray *ray, t_cylinder *cy,double lt)
+static bool	block_cy_disk(t_ray *ray, t_cylinder *cy, t_data *data)
 {
+	const double	tl = vec_len(point_diff(ray->origin, data->light.source));
 	const double	t3 = vec_dot(point_diff(cy->top, ray->origin),
 			cy->vector) / vec_dot(ray->direction, cy->vector);
 	const double	t4 = vec_dot(point_diff(cy->bottom, ray->origin),
@@ -71,10 +49,10 @@ static bool	block_cy_disk(t_ray *ray, t_cylinder *cy,double lt)
 	const t_vector	v4 = point_diff(get_hitpoint(*ray, t4), cy->bottom);
 
 	if (vec_dot(v3, v3) <= cy->r * cy->r && t3 - CORRECT_F > 0
-		&& t3 - CORRECT_F < lt)
+		&& t3 - CORRECT_F < tl)
 		return (true);
 	if (vec_dot(v4, v4) <= cy->r * cy->r && t4 - CORRECT_F > 0
-		&& t4 - CORRECT_F < lt)
+		&& t4 - CORRECT_F < tl)
 		return (true);
 	return (false);
 }
@@ -97,5 +75,30 @@ bool	block_cylinder(t_ray *ray, t_cylinder *cy, t_data *data)
 	if (vec_dot(hit_vector, cy->vector) - CORRECT_F > 0
 		&& (vec_dot(hit_vector, cy->vector) - CORRECT_F <= cy->height))
 		return (true);
-	return (block_cy_disk(ray, cy, tl));
+	return (false);
+}
+
+bool	in_light(t_data *data, t_point hitpoint, int idx)
+{
+	t_vector	shadow_ray_dir;
+	t_ray		shadow_ray;
+	int			i;
+
+	shadow_ray_dir = vec_normalize(point_diff(data->light.source, hitpoint));
+	shadow_ray = init_shadow_ray(hitpoint, shadow_ray_dir);
+	i = -1;
+	while (++i < data->n_obj)
+	{
+		if ((data->objs[i].type == SPHERE
+				&& block_sphere(&shadow_ray, &data->objs[i].sp, data))
+			|| (data->objs[i].type == PLANE
+				&& block_plane(&shadow_ray, &data->objs[i].pl, data))
+			|| (data->objs[i].type == CYLINDER
+				&& block_cylinder(&shadow_ray, &data->objs[i].cy, data))
+			|| (data->objs[i].type == CYLINDER
+				&& block_cy_disk(&shadow_ray, &data->objs[i].cy, data)))
+			return (false);
+	}
+	(void)idx;
+	return (true);
 }

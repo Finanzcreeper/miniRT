@@ -21,9 +21,9 @@ static bool	is_dbl(char *nbr)
 	return (true);
 }
 
-// TODO: check overflow
 double	ft_strtod(char *nbr, bool *success)
 {
+	const char	sign = nbr[0];
 	const int	integer = ft_atoi(nbr);
 	double		fraction;
 	double		factor;
@@ -44,7 +44,7 @@ double	ft_strtod(char *nbr, bool *success)
 		fraction += (*(nbr - 1) - '0') * factor;
 		factor *= 0.1;
 	}
-	if (integer >= 0)
+	if (integer >= 0 && sign != '-')
 		return (*success = true, (double)(integer + fraction));
 	return (*success = true, (double)(integer - fraction));
 }

@@ -63,6 +63,9 @@ void	intersection(t_ray *ray, t_data *data)
 		else if (data->objs[i].type == PLANE)
 			hit_plane(ray, &data->objs[i].pl, data, i);
 		else if (data->objs[i].type == CYLINDER)
+		{
 			hit_cylinder(ray, &data->objs[i].cy, data, i);
+			hit_cy_disk(ray, &data->objs[i].cy, data, i);
+		}
 	}
 }

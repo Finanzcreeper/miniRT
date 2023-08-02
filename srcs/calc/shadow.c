@@ -1,6 +1,6 @@
 #include "miniRT.h"
 
-bool	block_sphere(t_ray *ray, t_sphere *sphere, t_data *data)
+static bool	block_sphere(t_ray *ray, t_sphere *sphere, t_data *data)
 {
 	const t_light	light = data->light;
 	const t_vector	oc = point_diff(ray->origin, sphere->center);
@@ -20,7 +20,7 @@ bool	block_sphere(t_ray *ray, t_sphere *sphere, t_data *data)
 	return (true);
 }
 
-bool	block_plane(t_ray *ray, t_plane *plane, t_data *data)
+static bool	block_plane(t_ray *ray, t_plane *plane, t_data *data)
 {
 	const t_light	light = data->light;
 	const double	denom = vec_dot(ray->direction, plane->vector);
@@ -57,7 +57,7 @@ static bool	block_cy_disk(t_ray *ray, t_cylinder *cy, t_data *data)
 	return (false);
 }
 
-bool	block_cylinder(t_ray *ray, t_cylinder *cy, t_data *data)
+static bool	block_cylinder(t_ray *ray, t_cylinder *cy, t_data *data)
 {
 	const t_vector	oc = point_diff(ray->origin, cy->top);
 	const double	tl = vec_len(point_diff(ray->origin, data->light.source));

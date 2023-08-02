@@ -1,6 +1,5 @@
 #include "miniRT.h"
 
-// any error will call ft_error to exit in place
 static void	load_data(char *file, t_data *data)
 {
 	const char	*ext = ft_strrchr(file, '.');

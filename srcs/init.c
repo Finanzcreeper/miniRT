@@ -6,6 +6,7 @@ void	init_data(t_data *data)
 	data->lines = NULL;
 	data->infos = NULL;
 	data->objs = NULL;
+	data->cam_inside = NULL;
 	data->mlx = NULL;
 	data->ambient.assigned = false;
 	data->camera.assigned = false;
@@ -17,9 +18,9 @@ void	init_data(t_data *data)
 
 t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)
 {
-	const t_vector	up = {0, 1, 0};
-	t_raymap		map;
-	t_ray			ray;
+	const t_vec	up = {0, 1, 0};
+	t_raymap	map;
+	t_ray		ray;
 
 	ray.origin = data->camera.view;
 	map.right = vec_cross(up, data->camera.orientation);
@@ -38,12 +39,11 @@ t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)
 		- map.z * data->camera.orientation.z;
 	ray.direction = vec_normalize(ray.direction);
 	ray.light = true;
-	ray.in_obj = false;
 	ray.t_obj = INFINITY;
 	return (ray);
 }
 
-t_ray	init_shadow_ray(t_point origin, t_vector direction)
+t_ray	init_shadow_ray(t_point origin, t_vec direction)
 {
 	t_ray	ray;
 

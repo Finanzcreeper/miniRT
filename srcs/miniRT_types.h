@@ -24,7 +24,7 @@ typedef struct s_vector
 	double	x;
 	double	y;
 	double	z;
-}	t_vector;
+}	t_vec;
 
 typedef struct s_ambient
 {
@@ -35,10 +35,10 @@ typedef struct s_ambient
 
 typedef struct s_camera
 {
-	bool		assigned;
-	t_point		view;
-	t_vector	orientation;
-	int			fov;
+	bool	assigned;
+	t_point	view;
+	t_vec	orientation;
+	int		fov;
 }	t_camera;
 
 typedef struct s_light
@@ -59,22 +59,22 @@ typedef struct s_sphere
 
 typedef struct s_plane
 {
-	t_point		point;
-	t_vector	vector;
-	t_color		color;
+	t_point	point;
+	t_vec	vector;
+	t_color	color;
 }	t_plane;
 
 typedef struct s_cylinder
 {
-	t_point		center;
-	t_point		top;
-	t_point		bottom;
-	t_vector	o_vector;
-	t_vector	vector;
-	double		diameter;
-	double		r;
-	double		height;
-	t_color		color;
+	t_point	center;
+	t_point	top;
+	t_point	bottom;
+	t_vec	o_vector;
+	t_vec	vector;
+	double	diameter;
+	double	r;
+	double	height;
+	t_color	color;
 }	t_cylinder;
 
 typedef enum e_type
@@ -103,25 +103,24 @@ typedef struct s_object
 
 typedef struct s_ray
 {
-	t_point		origin;
-	t_vector	direction;
-	t_color		color;
-	bool		light;
-	bool		in_obj;
-	double		t_obj;
-	double		fr;
+	t_point	origin;
+	t_vec	direction;
+	t_color	color;
+	bool	light;
+	double	t_obj;
+	double	fr;
 }	t_ray;
 
 typedef struct s_raymap
 {
-	t_vector	right;
-	t_vector	true_up;
-	float		ndc_x;
-	float		ndc_y;
-	float		z;
-	float		r;
-	float		screen_x;
-	float		screen_y;
+	t_vec	right;
+	t_vec	true_up;
+	float	ndc_x;
+	float	ndc_y;
+	float	z;
+	float	r;
+	float	screen_x;
+	float	screen_y;
 }	t_raymap;
 
 typedef struct s_quadeq
@@ -166,6 +165,7 @@ typedef struct s_data
 	t_camera	camera;
 	t_light		light;
 	t_object	*objs;
+	t_object	*cam_inside;
 	int			n_obj;
 	mlx_t		*mlx;
 	mlx_image_t	*img;

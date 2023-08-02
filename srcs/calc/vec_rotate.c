@@ -1,11 +1,11 @@
 #include "miniRT.h"
 
-t_vector	rotate_x(t_vector vec, t_action action)
+t_vec	rotate_x(t_vec vec, t_action action)
 {
 	const double	radian = ROT_STEP * M_PI / 180;
 	double			cos_rot;
 	double			sin_rot;
-	t_vector		ret;
+	t_vec			ret;
 
 	if (action == INCREMENT)
 	{
@@ -23,12 +23,12 @@ t_vector	rotate_x(t_vector vec, t_action action)
 	return (ret);
 }
 
-t_vector	rotate_y(t_vector vec, t_action action)
+t_vec	rotate_y(t_vec vec, t_action action)
 {
 	const double	radian = ROT_STEP * M_PI / 180;
 	double			cos_rot;
 	double			sin_rot;
-	t_vector		ret;
+	t_vec			ret;
 
 	if (action == INCREMENT)
 	{
@@ -46,12 +46,12 @@ t_vector	rotate_y(t_vector vec, t_action action)
 	return (ret);
 }
 
-t_vector	rotate_z(t_vector vec, t_action action)
+t_vec	rotate_z(t_vec vec, t_action action)
 {
 	const double	radian = ROT_STEP * M_PI / 180;
 	double			cos_rot;
 	double			sin_rot;
-	t_vector		ret;
+	t_vec			ret;
 
 	if (action == INCREMENT)
 	{

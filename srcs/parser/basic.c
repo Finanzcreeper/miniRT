@@ -46,7 +46,7 @@ bool	parse_point(char *s, t_point *point)
 }
 
 /* Parse a normalized vector, returns whether it's successful. */
-bool	parse_vector(char *s, t_vector *vector)
+bool	parse_vector(char *s, t_vec *vector)
 {
 	char	**parts;
 	bool	success;

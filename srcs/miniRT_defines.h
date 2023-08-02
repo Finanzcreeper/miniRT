@@ -1,6 +1,9 @@
 #ifndef MINIRT_DEFINES_H
 # define MINIRT_DEFINES_H
 
+# define WINDOW_W	640
+# define WINDOW_H	640
+
 # define STDIN		0
 # define STDOUT		1
 # define STDERR		2
@@ -14,8 +17,6 @@
 # define COLOR_MAX	255
 # define COLOR_MIN	0
 # define SHADOW_F	0.1
-# define WINDOW_W	640
-# define WINDOW_H	640
 # define CAM_IDX	-2
 # define LIGHT_IDX	-1
 # define TRAN_STEP	0.5

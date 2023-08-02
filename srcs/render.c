@@ -1,8 +1,27 @@
 #include "miniRT.h"
 
-static uint32_t	bg_color(void)
+static bool	render_inside(mlx_image_t *img, t_data *data)
 {
-	return (BG_R << 24 | BG_G << 16 | BG_B << 8 | BG_A);
+	int			h;
+	int			w;
+	t_ray		ray;
+
+	if (!data || !data->cam_inside)
+		return (false);
+	w = -1;
+	while (++w < (int) img->width)
+	{
+		h = -1;
+		while (++h < (int) img->height)
+		{
+			ray.color = *data->cam_inside->color;
+			ray.light = false;
+			ray.fr = 1;
+			mlx_put_pixel(img, w, h, mlxcolor(ray.color, ray.fr, *data,
+					ray.light));
+		}
+	}
+	return (true);
 }
 
 void	render(mlx_image_t *img, t_data *data)
@@ -11,6 +30,12 @@ void	render(mlx_image_t *img, t_data *data)
 	int			w;
 	t_ray		ray;
 
+	data->cam_inside = NULL;
+	check_inside(data);
+	if (data->cam_inside)
+		printf("inside!");
+	if (data->cam_inside && render_inside(img, data))
+		return ;
 	w = -1;
 	while (++w < (int) img->width)
 	{

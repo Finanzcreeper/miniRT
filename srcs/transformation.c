@@ -18,7 +18,7 @@ void	translation(t_point *pt, t_action act, t_axis axis, t_object *obj)
 		update_cy(&obj->cy);
 }
 
-void	rotation(t_vector *vec, t_action act, t_axis axis, t_object *obj)
+void	rotation(t_vec *vec, t_action act, t_axis axis, t_object *obj)
 {
 	if (axis == AXIS_X)
 		*vec = rotate_x(*vec, act);

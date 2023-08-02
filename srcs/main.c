@@ -26,7 +26,7 @@ int	main(int ac, char **av)
 		ft_error(ERR_ARG, true, NULL);
 	init_data(&data);
 	load_data(av[1], &data);
-	data.mlx = mlx_init(WINDOW_W, WINDOW_H, "miniRT", true);
+	data.mlx = mlx_init(WINDOW_W, WINDOW_H, "miniRT", false);
 	data.img = mlx_new_image(data.mlx, data.mlx->width, data.mlx->height);
 	render(data.img, &data);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);

@@ -26,6 +26,18 @@ static void	hit_cylinder_disk(t_ray *ray, t_cylinder *cy, t_data *data, int idx)
 	}
 }
 
+void	update_cy(t_cylinder *obj)
+{
+	obj->r = obj->diameter / 2;
+	obj->top.x = obj->center.x + obj->o_vector.x * obj->height / 2;
+	obj->top.y = obj->center.y + obj->o_vector.y * obj->height / 2;
+	obj->top.z = obj->center.z + obj->o_vector.z * obj->height / 2;
+	obj->vector = vec_negate(obj->o_vector);
+	obj->bottom.x = obj->top.x + obj->vector.x * obj->height;
+	obj->bottom.y = obj->top.y + obj->vector.y * obj->height;
+	obj->bottom.z = obj->top.z + obj->vector.z * obj->height;
+}
+
 void	cy_quadeq(t_quadeq *eq, t_ray *ray, t_cylinder *cy, t_vector oc)
 {
 	eq->a = vec_dot(ray->direction, ray->direction)

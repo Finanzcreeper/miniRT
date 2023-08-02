@@ -69,6 +69,7 @@ typedef struct s_cylinder
 	t_point		center;
 	t_point		top;
 	t_point		bottom;
+	t_vector	o_vector;
 	t_vector	vector;
 	double		diameter;
 	double		r;

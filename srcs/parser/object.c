@@ -42,18 +42,6 @@ bool	parse_plane(char **infos, int *idx, t_data *data)
 	return (++(*idx), true);
 }
 
-void	calc_cylinder(t_cylinder *obj)
-{
-	obj->r = obj->diameter / 2;
-	obj->top.x = obj->center.x + obj->vector.x * obj->height / 2;
-	obj->top.y = obj->center.y + obj->vector.y * obj->height / 2;
-	obj->top.z = obj->center.z + obj->vector.z * obj->height / 2;
-	obj->vector = vec_negate(obj->vector);
-	obj->bottom.x = obj->top.x + obj->vector.x * obj->height;
-	obj->bottom.y = obj->top.y + obj->vector.y * obj->height;
-	obj->bottom.z = obj->top.z + obj->vector.z * obj->height;
-}
-
 bool	parse_cylinder(char **infos, int *idx, t_data *data)
 {
 	t_cylinder	*obj;
@@ -67,7 +55,7 @@ bool	parse_cylinder(char **infos, int *idx, t_data *data)
 		ft_error(ERR_CY, true, data);
 	if (!parse_point(infos[1], &obj->center))
 		ft_error(ERR_CY, true, data);
-	if (!parse_vector(infos[2], &obj->vector))
+	if (!parse_vector(infos[2], &obj->o_vector))
 		ft_error(ERR_CY, true, data);
 	success = true;
 	obj->diameter = ft_strtod(infos[3], &success);
@@ -76,5 +64,5 @@ bool	parse_cylinder(char **infos, int *idx, t_data *data)
 		ft_error(ERR_CY, true, data);
 	if (!parse_color(infos[5], &obj->color))
 		ft_error(ERR_CY, true, data);
-	return (calc_cylinder(obj), ++(*idx), true);
+	return (update_cy(obj), ++(*idx), true);
 }

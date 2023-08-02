@@ -61,7 +61,7 @@ bool		block_plane(t_ray *ray, t_plane *plane, t_data *data);
 bool		block_cylinder(t_ray *ray, t_cylinder *cylinder, t_data *data);
 void		hit_cylinder(t_ray *ray, t_cylinder *cy, t_data *data, int idx);
 void		intersection(t_ray *ray, t_data *data);
-
+void		update_cy(t_cylinder *obj);
 double		sp_facing_ratio(t_point hitpoint, t_sphere sphere, t_light light);
 double		pl_facing_ratio(t_point hitpoint, t_plane plane, t_light light);
 double		cy_fr_side(t_point hitpoint, t_cylinder cy, t_light light);
@@ -70,8 +70,8 @@ double		cy_fr_bottom(t_point hitpoint, t_cylinder cy, t_light light);
 
 void		ft_keyhook(mlx_key_data_t keydata, void *param);
 
-void		translation(t_point *pt, t_action action, t_axis axis);
-void		rotation(t_vector *vec, t_action action, t_axis axis);
+void		translation(t_point *pt, t_action act, t_axis axis, t_object *obj);
+void		rotation(t_vector *vec, t_action act, t_axis axis, t_object *obj);
 void		increment_rerender(t_data *data, t_axis axis);
 void		decrement_rerender(t_data *data, t_axis axis);
 void		render(mlx_image_t *img, t_data *data);

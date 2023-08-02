@@ -52,11 +52,11 @@ void	increment_rerender(t_data *data, t_axis axis)
 	if (data->idx >= data->n_obj)
 		return ;
 	if (data->action == TRANSLATION)
-		translation(data->objs[data->idx].pt, INCREMENT, axis);
+		translation(data->objs[data->idx].pt, INCREMENT, axis, &data->objs[data->idx]);
 	if (data->action == ROTATION && data->objs[data->idx].type == CYLINDER)
-		rotation(&data->objs[data->idx].cy.vector, INCREMENT, axis);
+		rotation(&data->objs[data->idx].cy.o_vector, INCREMENT, axis, &data->objs[data->idx]);
 	if (data->action == ROTATION && data->objs[data->idx].type == PLANE)
-		rotation(&data->objs[data->idx].pl.vector, INCREMENT, axis);
+		rotation(&data->objs[data->idx].pl.vector, INCREMENT, axis, &data->objs[data->idx]);
 	render(data->img, data);
 }
 
@@ -69,10 +69,10 @@ void	decrement_rerender(t_data *data, t_axis axis)
 	if (data->idx >= data->n_obj)
 		return ;
 	if (data->action == TRANSLATION)
-		translation(data->objs[data->idx].pt, DECREMENT, axis);
+		translation(data->objs[data->idx].pt, DECREMENT, axis, &data->objs[data->idx]);
 	if (data->action == ROTATION && data->objs[data->idx].type == CYLINDER)
-		rotation(&data->objs[data->idx].cy.vector, DECREMENT, axis);
+		rotation(&data->objs[data->idx].cy.o_vector, DECREMENT, axis, &data->objs[data->idx]);
 	if (data->action == ROTATION && data->objs[data->idx].type == PLANE)
-		rotation(&data->objs[data->idx].pl.vector, DECREMENT, axis);
+		rotation(&data->objs[data->idx].pl.vector, DECREMENT, axis, &data->objs[data->idx]);
 	render(data->img, data);
 }

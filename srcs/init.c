@@ -55,8 +55,8 @@ t_ray	init_shadow_ray(t_point origin, t_vector direction)
 void	init_context(t_data *data)
 {
 	data->prt.wasd = mlx_put_string(data->mlx, STR_WASD, 0, 0);
-	data->prt.scroll = mlx_put_string(data->mlx, STR_SCROLL, 0, 0);
-	data->prt.swap_obj = mlx_put_string(data->mlx, STR_SWAP, 0, 0);
-	data->prt.swap_rot_trans = mlx_put_string(data->mlx, STR_ACT, 0, 0);
-	data->prt.w = mlx_put_string(data->mlx, STR_CAM, 0, 0);
+	data->prt.scroll = mlx_put_string(data->mlx, STR_SCROLL, 0, 20);
+	data->prt.swap_obj = mlx_put_string(data->mlx, STR_SWAP, 0, 40);
+	data->prt.swap_rot_trans = mlx_put_string(data->mlx, STR_ACT, 0, 60);
+	data->prt.w = mlx_put_string(data->mlx, STR_CAM, 0, 80);
 }

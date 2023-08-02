@@ -26,6 +26,7 @@ LIBMLX = $(MLXDIR)/build/libmlx42.a
 MUTE = >/dev/null
 MAKEFLAGS = --no-print-directory
 CFLAGS = -Wall -Werror -Wextra -g3
+DEBUGFLAGS = -g3
 IFLAGS = -I $(LIBDIR) -I $(MLXDIR)/include -I $(SRCDIR)
 
 ifeq ($(shell uname -s), Darwin)

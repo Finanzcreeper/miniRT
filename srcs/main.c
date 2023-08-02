@@ -29,14 +29,9 @@ int	main(int ac, char **av)
 	load_data(av[1], &data);
 	data.mlx = mlx_init(WINDOW_W, WINDOW_H, "miniRT", true);
 	data.img = mlx_new_image(data.mlx, data.mlx->width, data.mlx->height);
-	init_context(&data);
 	render(data.img, &data);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
-	mlx_image_to_window(data.mlx, data.prt.wasd, 0, 0);
-	mlx_image_to_window(data.mlx, data.prt.scroll, 0, 20);
-	mlx_image_to_window(data.mlx, data.prt.swap_obj, 0, 40);
-	mlx_image_to_window(data.mlx, data.prt.swap_rot_trans, 0, 60);
-	mlx_image_to_window(data.mlx, data.prt.w, 0, 80);
+	init_context(&data);
 	mlx_key_hook(data.mlx, &ft_keyhook, &data);
 	mlx_scroll_hook(data.mlx, &ft_scrollhook, &data);
 	mlx_close_hook(data.mlx, &ft_close_hook, &data);

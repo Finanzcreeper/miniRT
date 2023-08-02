@@ -60,6 +60,8 @@ void	update_controlled(t_data *data, int idx)
 		data->prt.w = mlx_put_string(data->mlx, STR_CAM, 0, 80);
 	if (idx == LIGHT_IDX)
 		data->prt.w = mlx_put_string(data->mlx, STR_LIGHT, 0, 80);
+	if (idx < 0 || idx >= data->n_obj)
+		return ;
 	if (data->objs[idx].type == SPHERE)
 		data->prt.w = mlx_put_string(data->mlx, STR_SP, 0, 80);
 	if (data->objs[idx].type == CYLINDER)

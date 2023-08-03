@@ -47,7 +47,10 @@ void	ft_resizehook(int32_t width, int32_t height, void *param)
 	t_data	*data;
 
 	data = param;
-	mlx_resize_image(data->img, width, height);
-	if (!data->busy)
+	if (mlx_get_time() - data->time > RESIZE_T)
+	{
+		data->time = mlx_get_time();
+		mlx_resize_image(data->img, width, height);
 		render(data->img, data);
+	}
 }

@@ -28,6 +28,7 @@ int	main(int ac, char **av)
 	load_data(av[1], &data);
 	data.mlx = mlx_init(WINDOW_W, WINDOW_H, "miniRT", true);
 	data.img = mlx_new_image(data.mlx, data.mlx->width, data.mlx->height);
+	data.time = mlx_get_time();
 	render(data.img, &data);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
 	init_context(&data);

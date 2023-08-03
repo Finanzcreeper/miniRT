@@ -23,6 +23,7 @@
 # define ROT_STEP	10
 # define CORRECT_F	0.001
 # define FOCAL_LEN	-1.0
+# define RESIZE_T	0.05
 
 # define SCENE_EXT	".rt"
 

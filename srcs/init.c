@@ -29,7 +29,7 @@ t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)
 	map.ndc_y = 1.0f - (height + 0.5f) / img->height * 2.0f;
 	map.z = FOCAL_LEN;
 	map.r = tan((data->camera.fov * (M_PI / 180)) / 2.0f);
-	map.screen_x = map.ndc_x * map.r * (img->width / img->height);
+	map.screen_x = map.ndc_x * map.r * (WINDOW_W / WINDOW_H);
 	map.screen_y = map.ndc_y * map.r;
 	ray.direction.x = map.screen_x * map.right.x + map.screen_y * map.true_up.x
 		- map.z * data->camera.orientation.x;

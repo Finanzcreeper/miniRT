@@ -1,8 +1,8 @@
 #ifndef MINIRT_DEFINES_H
 # define MINIRT_DEFINES_H
 
-# define WINDOW_W	640
-# define WINDOW_H	640
+# define WINDOW_W	620.0
+# define WINDOW_H	640.0
 
 # define STDIN		0
 # define STDOUT		1

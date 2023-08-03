@@ -43,12 +43,9 @@ uint32_t	mlxcolor(t_color color, double fr, t_data data, bool light)
 	}
 	else
 	{
-		r = ((color.r * 1 / 255) * (data.light.color.r
-					+ data.ambient.color.r)) / 2;
-		g = ((color.g * 1 / 255) * (data.light.color.g
-					+ data.ambient.color.g)) / 2;
-		b = ((color.b * 1 / 255) * (data.light.color.b
-					+ data.ambient.color.b)) / 2;
+		r = fmin(COLOR_MAX, ((color.r * 1 / 255) * data.light.color.r) + ((color.r * 1 / 255) * data.ambient.color.r));
+		g = fmin(COLOR_MAX, ((color.g * 1 / 255) * data.light.color.g) + ((color.g * 1 / 255) * data.ambient.color.g));
+		b = fmin(COLOR_MAX, ((color.b * 1 / 255) * data.light.color.b) + ((color.b * 1 / 255) * data.ambient.color.b));
 		a = fmin(COLOR_MAX, ((color.a * fr * data.light.ratio)
 					+ (color.a * data.ambient.ratio)));
 	}

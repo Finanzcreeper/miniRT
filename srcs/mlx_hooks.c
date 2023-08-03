@@ -21,13 +21,13 @@ void	ft_keyhook(mlx_key_data_t keydata, void *param)
 		&& data->idx < data->n_obj - 1)
 		update_controlled(data, ++(data->idx));
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-		increment_rerender(data, AXIS_X);
-	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-		decrement_rerender(data, AXIS_X);
+		increment_rerender(data, MLX_KEY_D);
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-		increment_rerender(data, AXIS_Y);
+		increment_rerender(data, MLX_KEY_W);
+	if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
+		decrement_rerender(data, MLX_KEY_A);
 	if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-		decrement_rerender(data, AXIS_Y);
+		decrement_rerender(data, MLX_KEY_S);
 }
 
 void	ft_scrollhook(double xdelta, double ydelta, void *param)
@@ -37,7 +37,17 @@ void	ft_scrollhook(double xdelta, double ydelta, void *param)
 	xdelta = xdelta + 0;
 	data = param;
 	if (ydelta > 0)
-		increment_rerender(data, AXIS_Z);
+		increment_rerender(data, 20);
 	if (ydelta < 0)
-		decrement_rerender(data, AXIS_Z);
+		decrement_rerender(data, 21);
+}
+
+void	resize_window(int32_t width, int32_t height, void *param)
+{
+	t_data	*data;
+
+	data = param;
+	mlx_resize_image(data->img, width, height);
+	//render(data->img, data);
+
 }

@@ -70,42 +70,42 @@ void	update_controlled(t_data *data, int idx)
 		data->prt.w = mlx_put_string(data->mlx, STR_PL, 0, 80);
 }
 
-void	increment_rerender(t_data *data, t_axis axis)
+void	increment_rerender(t_data *data, int key)
 {
 	t_object	*obj;
 
-	if (data->idx == CAM_IDX && adjust_camera(INCREMENT, data, axis))
+	if (data->idx == CAM_IDX && adjust_camera(INCREMENT, data, key))
 		return ;
-	if (data->idx == LIGHT_IDX && adjust_light(INCREMENT, data, axis))
+	if (data->idx == LIGHT_IDX && adjust_light(INCREMENT, data, key))
 		return ;
 	if (data->idx >= data->n_obj)
 		return ;
 	obj = &data->objs[data->idx];
 	if (data->action == TRANSLATION)
-		translation(data->objs[data->idx].pt, INCREMENT, axis, obj);
+		translation(data->objs[data->idx].pt, INCREMENT, key, obj);
 	if (data->action == ROTATION && data->objs[data->idx].type == CYLINDER)
-		rotation(&obj->cy.o_vector, INCREMENT, axis, obj);
+		rotation(&obj->cy.o_vector, INCREMENT, key, obj);
 	if (data->action == ROTATION && data->objs[data->idx].type == PLANE)
-		rotation(&obj->pl.vector, INCREMENT, axis, obj);
+		rotation(&obj->pl.vector, INCREMENT, key, obj);
 	render(data->img, data);
 }
 
-void	decrement_rerender(t_data *data, t_axis axis)
+void	decrement_rerender(t_data *data, int key)
 {
 	t_object	*obj;
 
-	if (data->idx == CAM_IDX && adjust_camera(DECREMENT, data, axis))
+	if (data->idx == CAM_IDX && adjust_camera(DECREMENT, data, key))
 		return ;
-	if (data->idx == LIGHT_IDX && adjust_light(DECREMENT, data, axis))
+	if (data->idx == LIGHT_IDX && adjust_light(DECREMENT, data, key))
 		return ;
 	if (data->idx >= data->n_obj)
 		return ;
 	obj = &data->objs[data->idx];
 	if (data->action == TRANSLATION)
-		translation(data->objs[data->idx].pt, DECREMENT, axis, obj);
+		translation(data->objs[data->idx].pt, DECREMENT, key, obj);
 	if (data->action == ROTATION && data->objs[data->idx].type == CYLINDER)
-		rotation(&obj->cy.o_vector, DECREMENT, axis, obj);
+		rotation(&obj->cy.o_vector, DECREMENT, key, obj);
 	if (data->action == ROTATION && data->objs[data->idx].type == PLANE)
-		rotation(&obj->pl.vector, DECREMENT, axis, obj);
+		rotation(&obj->pl.vector, DECREMENT, key, obj);
 	render(data->img, data);
 }

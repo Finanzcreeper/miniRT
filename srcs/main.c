@@ -26,11 +26,12 @@ int	main(int ac, char **av)
 		ft_error(ERR_ARG, true, NULL);
 	init_data(&data);
 	load_data(av[1], &data);
-	data.mlx = mlx_init(WINDOW_W, WINDOW_H, "miniRT", false);
+	data.mlx = mlx_init(WINDOW_W, WINDOW_H, "miniRT", true);
 	data.img = mlx_new_image(data.mlx, data.mlx->width, data.mlx->height);
 	render(data.img, &data);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
 	init_context(&data);
+	mlx_resize_hook(data.mlx, resize_window, &data);
 	mlx_key_hook(data.mlx, &ft_keyhook, &data);
 	mlx_scroll_hook(data.mlx, &ft_scrollhook, &data);
 	mlx_close_hook(data.mlx, &ft_close_hook, &data);

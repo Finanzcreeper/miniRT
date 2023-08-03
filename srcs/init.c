@@ -19,24 +19,24 @@ void	init_data(t_data *data)
 t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)
 {
 	const t_vec	up = {0, 1, 0};
-	t_raymap	map;
+	t_raymap	m;
 	t_ray		ray;
 
 	ray.origin = data->camera.view;
-	map.right = vec_cross(up, data->camera.orientation);
-	map.true_up = vec_cross(data->camera.orientation, map.right);
-	map.ndc_x = (width + 0.5f) / img->width * 2.0f - 1.0f;
-	map.ndc_y = 1.0f - (height + 0.5f) / img->height * 2.0f;
-	map.z = FOCAL_LEN;
-	map.r = tan((data->camera.fov * (M_PI / 180)) / 2.0f);
-	map.screen_x = map.ndc_x * map.r * (WINDOW_W / WINDOW_H);
-	map.screen_y = map.ndc_y * map.r;
-	ray.direction.x = map.screen_x * map.right.x + map.screen_y * map.true_up.x
-		- map.z * data->camera.orientation.x;
-	ray.direction.y = map.screen_x * map.right.y + map.screen_y * map.true_up.y
-		- map.z * data->camera.orientation.y;
-	ray.direction.z = map.screen_x * map.right.z + map.screen_y * map.true_up.z
-		- map.z * data->camera.orientation.z;
+	m.right = vec_cross(up, data->camera.orientation);
+	m.true_up = vec_cross(data->camera.orientation, m.right);
+	m.ndc_x = (width + 0.5f) / img->width * 2.0f - 1.0f;
+	m.ndc_y = 1.0f - (height + 0.5f) / img->height * 2.0f;
+	m.z = FOCAL_LEN;
+	m.r = tan((data->camera.fov * (M_PI / 180)) / 2.0f);
+	m.screen_x = m.ndc_x * m.r * ((float) img->width / (float) img->height);
+	m.screen_y = m.ndc_y * m.r;
+	ray.direction.x = m.screen_x * m.right.x + m.screen_y * m.true_up.x
+		- m.z * data->camera.orientation.x;
+	ray.direction.y = m.screen_x * m.right.y + m.screen_y * m.true_up.y
+		- m.z * data->camera.orientation.y;
+	ray.direction.z = m.screen_x * m.right.z + m.screen_y * m.true_up.z
+		- m.z * data->camera.orientation.z;
 	ray.direction = vec_normalize(ray.direction);
 	ray.light = true;
 	ray.t_obj = INFINITY;

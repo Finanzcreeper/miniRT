@@ -174,6 +174,7 @@ typedef struct s_data
 	char		**infos;
 	int			idx;
 	int			action;
+	bool		busy;
 }	t_data;
 
 #endif

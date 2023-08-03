@@ -42,12 +42,12 @@ void	ft_scrollhook(double xdelta, double ydelta, void *param)
 		decrement_rerender(data, 21);
 }
 
-void	resize_window(int32_t width, int32_t height, void *param)
+void	ft_resizehook(int32_t width, int32_t height, void *param)
 {
 	t_data	*data;
 
 	data = param;
 	mlx_resize_image(data->img, width, height);
-	//render(data->img, data);
-
+	if (!data->busy)
+		render(data->img, data);
 }

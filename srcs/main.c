@@ -31,8 +31,8 @@ int	main(int ac, char **av)
 	render(data.img, &data);
 	mlx_image_to_window(data.mlx, data.img, 0, 0);
 	init_context(&data);
-	mlx_resize_hook(data.mlx, resize_window, &data);
 	mlx_key_hook(data.mlx, &ft_keyhook, &data);
+	mlx_resize_hook(data.mlx, &ft_resizehook, &data);
 	mlx_scroll_hook(data.mlx, &ft_scrollhook, &data);
 	mlx_close_hook(data.mlx, &ft_close_hook, &data);
 	mlx_loop(data.mlx);

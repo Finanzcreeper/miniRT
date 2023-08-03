@@ -25,9 +25,7 @@ void		ft_free(t_data *data);
 void		ft_close_hook(void *param);
 void		ft_keyhook(mlx_key_data_t keydata, void *param);
 void		ft_scrollhook(double xdelta, double ydelta, void *param);
-
-void	resize_window(int32_t width, int32_t height, void* param);
-
+void		ft_resizehook(int32_t width, int32_t height, void *param);
 double		ft_strtod(char *nbr, bool *success);
 char		*ft_read_file(const char *filename);
 uint32_t	bg_color(void);

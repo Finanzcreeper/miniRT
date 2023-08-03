@@ -14,6 +14,7 @@ void	init_data(t_data *data)
 	data->n_obj = 0;
 	data->idx = CAM_IDX;
 	data->action = TRANSLATION;
+	data->busy = false;
 }
 
 t_ray	init_ray(t_data *data, mlx_image_t *img, int height, int width)

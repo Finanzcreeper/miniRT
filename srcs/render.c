@@ -32,10 +32,9 @@ void	render(mlx_image_t *img, t_data *data)
 
 	data->cam_inside = NULL;
 	check_inside(data);
-	if (data->cam_inside)
-		printf("inside!");
 	if (data->cam_inside && render_inside(img, data))
 		return ;
+	data->busy = true;
 	w = -1;
 	while (++w < (int) img->width)
 	{
@@ -51,6 +50,7 @@ void	render(mlx_image_t *img, t_data *data)
 						ray.light));
 		}
 	}
+	data->busy = false;
 }
 
 void	update_controlled(t_data *data, int idx)
